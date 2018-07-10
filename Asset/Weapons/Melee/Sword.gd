@@ -1,14 +1,8 @@
 extends "res://Asset/Script/Weapon.gd"
 
-func create_sword(wName,wDamage,wLevel,wRarity):
-	weaponName = wName
-	damage = wDamage
-	level = wLevel
-	rarity = wRarity
-	pass
 
 func _ready():
-	create_sword("test",1,1,NORMAL)
+	create_weapon("test",1,1,NORMAL)
 	pass
 
 func attack():
