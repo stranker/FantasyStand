@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://Asset/Weapons/Range/Bow.tscn" type="PackedScene" id=2]
 
 [sub_resource type="GDScript" id=1]
 
@@ -11,15 +10,37 @@ script/source = "extends KinematicBody2D
 var velocity = Vector2()
 var speed = 100
 var currentWeapon = null
+var weaponList = []
+var bow = preload(\"res://Asset/Weapons/Range/Bow.tscn\")
+var sword = preload(\"res://Asset/Weapons/Melee/Sword.tscn\")
+
 
 func _ready():
 	set_physics_process(true)
+	var b = bow.instance()
+	var s = sword.instance()
+	weaponList.append(b)
+	weaponList.append(s)
+	$WPos.add_child(b)
+	$WPos.add_child(s)
+	s.hide()
 	currentWeapon = $WPos.get_child(0)
+	pass
+
+func switch_weapon():
+	for i in weaponList:
+		if i.is_visible_in_tree():
+			i.hide()
+		else:
+			i.show()
+			currentWeapon = i
 	pass
 
 func _process(delta):
 	if Input.is_action_pressed(\"Shoot\"):
 		attack()
+	if Input.is_action_just_pressed(\"SwitchWeapon\"):
+		switch_weapon()
 	pass
 
 func attack():
@@ -53,7 +74,7 @@ custom_solver_bias = 0.0
 radius = 24.2871
 height = 20.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -72,8 +93,6 @@ shape = SubResource( 2 )
 
 [node name="WPos" type="Position2D" parent="." index="2"]
 
-[node name="Bow" parent="WPos" index="0" instance=ExtResource( 2 )]
-
-position = Vector2( 38.7078, -1.90261 )
+position = Vector2( 31.5468, -1.43394 )
 
 
