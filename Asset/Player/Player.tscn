@@ -25,6 +25,7 @@ func _ready():
 	$WPos.add_child(s)
 	s.hide()
 	currentWeapon = $WPos.get_child(0)
+	Global.player = self
 	pass
 
 func switch_weapon():

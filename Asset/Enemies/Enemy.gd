@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-enum STATES {WALKING,RUNNING,ATTACKING,KNOCKED}
+enum STATES {WALKING,RUNNING,ATTACKING,KNOCKED, FOLLOW}
 export (int) var speed
 var velocity = Vector2()
 export (int) var life
@@ -19,6 +19,11 @@ func create_enemy(_speed, _life, _damage, _gold):
 
 func _ready():
 	add_to_group("Enemy")
+	pass
+
+func _process(delta):
+	if !Global.wall.is_alive():
+		currentState = STATES.FOLLOW
 	pass
 
 func get_damage(val):

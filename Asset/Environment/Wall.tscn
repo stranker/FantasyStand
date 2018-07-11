@@ -2,29 +2,37 @@
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 
 resource_name = "Wall.gd"
 script/source = "extends StaticBody2D
 
-var life = 100
+var maxLife = 100
+var life
 
 func _ready():
 	add_to_group(\"Wall\")
+	life = maxLife
+	Global.wall = self
 	pass
 
 func get_damage(val):
 	life -= val
-	print(life)
-	pass"
+	if life <= 0:
+		$CollisionShape2D.disabled = true
+		life = 0
+	pass
+
+func is_alive():
+	return life > 0"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 5.82482, 10 )
 
-[node name="Wall" type="StaticBody2D"]
+[node name="Wall" type="StaticBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -33,7 +41,7 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
-script = SubResource( 2 )
+script = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -45,6 +53,6 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( -1.07153, 1.45438 )
 scale = Vector2( 2.70446, 31.7707 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 
