@@ -5,20 +5,19 @@
 [sub_resource type="GDScript" id=1]
 
 resource_name = "TempEnemy.gd"
-script/source = "extends KinematicBody2D
-
-enum STATES {WALKING,RUNNING,ATTACKING,KNOCKED}
-var speed = 100
-var velocity = Vector2()
-var life = 5
-var currentState = STATES.WALKING
-var wall = null
-var damage = 1
+script/source = "extends \"res://Asset/Enemies/Enemy.gd\"
 
 func _ready():
-	add_to_group(\"Enemy\")
+	create_temp_enemy()
 	$LifeBar.max_value = life
 	$LifeBar.value = life
+	velocity.x = -1
+	velocity.y = rand_range(-0.5,0.5)
+	velocity = velocity.normalized()
+	pass
+
+func create_temp_enemy():
+	create_enemy(50,5,1,25)
 	pass
 
 func _physics_process(delta):
@@ -26,20 +25,20 @@ func _physics_process(delta):
 	pass
 
 func movement(delta):
-	velocity = Vector2()
-	velocity.x = -1
-	velocity = velocity.normalized()
 	if currentState == STATES.WALKING:
-		move_and_collide(velocity * speed  * delta)
+		move_and_slide(velocity * speed)
 	pass
 
 func get_damage(val):
-	life -= val
-	$LifeBar.value = life
-	$Anim.play(\"Knock\")
-	currentState = STATES.KNOCKED
+	if currentState != STATES.KNOCKED: 
+		life -= val
+		$LifeBar.value = life
+		$Anim.play(\"Knock\")
+		currentState = STATES.KNOCKED
 	if life <= 0:
 		queue_free()
+		Global.gold += gold
+		Global.enemiesKilled += 1
 	pass
 
 func state_machine(delta):
@@ -125,6 +124,10 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = SubResource( 1 )
+speed = null
+life = null
+damage = null
+gold = null
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -196,7 +199,7 @@ blend_times = [  ]
 [node name="KnockTimer" type="Timer" parent="." index="6"]
 
 process_mode = 1
-wait_time = 0.5
+wait_time = 0.6
 one_shot = false
 autostart = false
 
