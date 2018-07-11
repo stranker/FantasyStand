@@ -1,0 +1,109 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Asset/Sprites/UI/big_circle.png" type="Texture" id=1]
+[ext_resource path="res://Asset/Sprites/UI/small_circle.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "ControlAnalogico.gd"
+script/source = "extends Control
+
+var pressed = false
+var posBola = Vector2()
+var fuerza = Vector2()
+var centroControl
+var sizeCentro
+
+var bg
+var ball
+
+func _ready():
+	centroControl = get_node(\"bg\").global_position
+	sizeCentro = get_node(\"bg\").texture.get_size()
+	bg = get_node(\"bg\")
+	ball = get_node(\"ball\")
+	pass
+
+func get_force():
+	return fuerza
+
+func _input(event):
+	if event is InputEventScreenDrag:
+		if isInside(event.position.x,event.position.y):
+			pressed = true
+	if event is InputEventScreenTouch:
+		if !event.is_pressed():
+			ball.position = Vector2(0,0)
+			fuerza = Vector2(0,0)
+			pressed = false
+	if pressed and !event is InputEventKey:
+		updateBolaPosition(event.position)
+	pass
+
+func isInside(var x,var y):
+	return x < centroControl.x + sizeCentro.x/2 and x >= centroControl.x - sizeCentro.x/2 and y< centroControl.y + sizeCentro.y/2 and y > centroControl.y - sizeCentro.y/2
+
+func updateBolaPosition(event):
+	calculateForce(event)
+	posBola.x = sizeCentro.x/2 * fuerza.x
+	posBola.y = sizeCentro.y/2 * -fuerza.y
+	ball.position = posBola 
+	pass
+
+func calculateForce(event):
+	fuerza.x = (event.x - centroControl.x)/(sizeCentro.x/2)
+	fuerza.y = -(event.y - centroControl.y)/(sizeCentro.y/2)
+	if fuerza.length_squared() > 1:
+		fuerza = fuerza / fuerza.length()
+	get_node(\"Label\").text = \"x:\"+str(fuerza.x)+\" y:\"+str(fuerza.y)
+	pass"
+_sections_unfolded = [ "Resource" ]
+
+[node name="ControlAnalogico" type="Control"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = SubResource( 1 )
+
+[node name="bg" type="Sprite" parent="." index="0"]
+
+self_modulate = Color( 1, 1, 1, 0.176824 )
+texture = ExtResource( 1 )
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="ball" type="Sprite" parent="." index="1"]
+
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Label" type="Label" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -19.0
+margin_top = -81.0
+margin_right = 21.0
+margin_bottom = -67.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "TEST"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

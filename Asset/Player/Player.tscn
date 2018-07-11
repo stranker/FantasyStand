@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Asset/UI/ControlAnalogico.tscn" type="PackedScene" id=2]
 
 [sub_resource type="GDScript" id=1]
 
@@ -26,6 +27,8 @@ func _ready():
 	s.hide()
 	currentWeapon = $WPos.get_child(0)
 	Global.player = self
+	if OS.get_name() != \"Windows\":
+		$CanvasLayer/ControlAnalogico.hide()
 	pass
 
 func switch_weapon():
@@ -55,14 +58,16 @@ func _physics_process(delta):
 
 func movement(delta):
 	velocity = Vector2()
-	if Input.is_action_pressed(\"ui_up\"):
-		velocity.y += -1
-	elif Input.is_action_pressed(\"ui_down\"):
-		velocity.y += 1
-	if Input.is_action_pressed(\"ui_right\"):
-		velocity.x = +1
-	elif Input.is_action_pressed(\"ui_left\"):
-		velocity.x += -1
+#	#if Input.is_action_pressed(\"ui_up\"):
+#		velocity.y += -1
+#	elif Input.is_action_pressed(\"ui_down\"):
+#		velocity.y += 1
+#	if Input.is_action_pressed(\"ui_right\"):
+#		velocity.x = +1
+#	elif Input.is_action_pressed(\"ui_left\"):
+#		velocity.x += -1
+	velocity.x = $CanvasLayer/ControlAnalogico.fuerza.x
+	velocity.y = -$CanvasLayer/ControlAnalogico.fuerza.y
 	velocity = velocity.normalized()
 	move_and_slide(velocity * speed)
 	pass
@@ -75,7 +80,7 @@ custom_solver_bias = 0.0
 radius = 24.2871
 height = 20.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -95,5 +100,22 @@ shape = SubResource( 2 )
 [node name="WPos" type="Position2D" parent="." index="2"]
 
 position = Vector2( 31.5468, -1.43394 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="3"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="ControlAnalogico" parent="CanvasLayer" index="0" instance=ExtResource( 2 )]
+
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 76.0
+margin_top = -78.0
+margin_right = 76.0
+margin_bottom = -78.0
 
 
