@@ -5,7 +5,7 @@
 [sub_resource type="GDScript" id=1]
 
 resource_name = "Bow.gd"
-script/source = "extends \"res://Asset/Script/Weapon.gd\"
+script/source = "extends \"res://Asset/Weapons/Weapon.gd\"
 
 var arrow = preload(\"res://Asset/Weapons/Range/Arrow.tscn\")
 

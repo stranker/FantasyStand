@@ -3,8 +3,6 @@
 [ext_resource path="res://Asset/Weapons/Melee/Sword.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
-
-
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -13,7 +11,7 @@ extents = Vector2( 6.65611, 33.4813 )
 [sub_resource type="Animation" id=2]
 
 resource_name = "Attack"
-length = 0.4
+length = 0.6
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -23,7 +21,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.4 ),
+"times": PoolRealArray( 0, 0.1, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 91.5037, 0.0 ]
@@ -35,7 +33,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.4 ),
+"times": PoolRealArray( 0.6 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ false ],
@@ -43,7 +41,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Sword" type="Area2D" index="0"]
+[node name="Sword" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )

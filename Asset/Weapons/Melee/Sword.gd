@@ -1,4 +1,4 @@
-extends "res://Asset/Script/Weapon.gd"
+extends "res://Asset/Weapons/Weapon.gd"
 
 
 func _ready():
@@ -12,6 +12,6 @@ func attack():
 	pass
 
 func _on_Sword_body_entered(body):
-	if body.is_in_group("Enemy"):
+	if body.is_in_group("Enemy") and attacking:
 		body.get_damage(damage)
 	pass # replace with function body
