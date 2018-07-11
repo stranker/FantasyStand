@@ -39,8 +39,8 @@ bounce = 0.0
 
 [node name="icon" type="Sprite" parent="StaticBody2D" index="0"]
 
-position = Vector2( 510.93, 35.5665 )
-scale = Vector2( 16.0386, 1.1906 )
+position = Vector2( 513.385, 91.2162 )
+scale = Vector2( 16.0386, 0.781112 )
 texture = ExtResource( 1 )
 
 [node name="icon2" type="Sprite" parent="StaticBody2D" index="1"]
@@ -51,19 +51,19 @@ texture = ExtResource( 1 )
 
 [node name="icon3" type="Sprite" parent="StaticBody2D" index="2"]
 
-position = Vector2( 10.0132, 385.472 )
+position = Vector2( 23.7264, 332.044 )
 rotation = -1.57213
-scale = Vector2( 16.0386, 1.1906 )
+scale = Vector2( 8.24138, 0.759835 )
 texture = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" index="3"]
 
 build_mode = 0
-polygon = PoolVector2Array( 1023.3, 599.195, -1.40155, 594.651, 0.870514, 1.63964, 1027.85, 3.91171, 1027.85, 69.8018, 50.8561, 76.6181, 48.584, 549.209, 1023.3, 549.209 )
+polygon = PoolVector2Array( 1023.3, 599.195, -1.40155, 594.651, 5.73587, 67.1023, 1024.76, 68.33, 1023.53, 118.667, 52.3899, 116.212, 48.584, 549.209, 1023.3, 549.209 )
 
 [node name="Wall" parent="StaticBody2D" index="4" instance=ExtResource( 2 )]
 
-position = Vector2( 199.103, 317.623 )
+position = Vector2( 202.118, 386.961 )
 
 [node name="UI" parent="." index="1" instance=ExtResource( 3 )]
 

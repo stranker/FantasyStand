@@ -37,7 +37,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font" ]
 
-[node name="UI" type="CanvasLayer"]
+[node name="UI" type="CanvasLayer" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -87,8 +87,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 90.0
-margin_bottom = 24.0
+margin_right = 296.0
+margin_bottom = 36.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -99,7 +99,6 @@ custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 2
 text = "1"
-align = 1
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -108,12 +107,10 @@ _sections_unfolded = [ "Rect", "custom_colors", "custom_constants", "custom_font
 
 [node name="GoldLabel" type="Label" parent="MC/Container" index="1"]
 
-anchor_left = 0.5
+anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -45.0
-margin_right = 45.0
 margin_bottom = 36.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -134,11 +131,12 @@ _sections_unfolded = [ "Rect", "custom_colors", "custom_constants", "custom_font
 
 [node name="WallLabel" type="Label" parent="MC/Container" index="2"]
 
-anchor_left = 0.0
-anchor_top = 1.0
+anchor_left = 1.0
+anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -36.0
+anchor_bottom = 0.0
+margin_left = -286.0
+margin_bottom = 36.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -149,7 +147,7 @@ custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 2
 text = "WALL"
-align = 1
+align = 2
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
