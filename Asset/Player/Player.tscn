@@ -14,7 +14,9 @@ var currentWeapon = null
 var weaponList = []
 var bow = preload(\"res://Asset/Weapons/Range/Bow.tscn\")
 var sword = preload(\"res://Asset/Weapons/Melee/Sword.tscn\")
-
+var strength = 1
+var agility = 1
+var luck = 1
 
 func _ready():
 	set_physics_process(true)
@@ -27,8 +29,21 @@ func _ready():
 	s.hide()
 	currentWeapon = $WPos.get_child(0)
 	Global.player = self
-	if OS.get_name() != \"Windows\":
+	if OS.get_name() == \"Windows\":
 		$CanvasLayer/ControlAnalogico.hide()
+	update_stats_weapons()
+	pass
+
+func add_stats():
+	strength += 1
+	agility += 1
+	luck += 1
+	update_stats_weapons()
+	pass
+
+func update_stats_weapons():
+	for i in weaponList:
+		i.update_stats(strength,agility,luck)
 	pass
 
 func switch_weapon():
@@ -58,16 +73,18 @@ func _physics_process(delta):
 
 func movement(delta):
 	velocity = Vector2()
-#	#if Input.is_action_pressed(\"ui_up\"):
-#		velocity.y += -1
-#	elif Input.is_action_pressed(\"ui_down\"):
-#		velocity.y += 1
-#	if Input.is_action_pressed(\"ui_right\"):
-#		velocity.x = +1
-#	elif Input.is_action_pressed(\"ui_left\"):
-#		velocity.x += -1
-	velocity.x = $CanvasLayer/ControlAnalogico.fuerza.x
-	velocity.y = -$CanvasLayer/ControlAnalogico.fuerza.y
+	if OS.get_name() == \"Windows\":
+		if Input.is_action_pressed(\"ui_up\"):
+			velocity.y += -1
+		elif Input.is_action_pressed(\"ui_down\"):
+			velocity.y += 1
+		if Input.is_action_pressed(\"ui_right\"):
+			velocity.x = +1
+		elif Input.is_action_pressed(\"ui_left\"):
+			velocity.x += -1
+	else:
+		velocity.x = $CanvasLayer/ControlAnalogico.fuerza.x
+		velocity.y = -$CanvasLayer/ControlAnalogico.fuerza.y
 	velocity = velocity.normalized()
 	move_and_slide(velocity * speed)
 	pass
@@ -80,7 +97,7 @@ custom_solver_bias = 0.0
 radius = 24.2871
 height = 20.0
 
-[node name="Player" type="KinematicBody2D" index="0"]
+[node name="Player" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1

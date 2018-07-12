@@ -15,6 +15,9 @@ func attack():
 func set_attacking(val):
 	attacking = val
 
+func update_stats(strength, agility, luck):
+	pass
+
 func create_weapon(wName,wDamage,wLevel,wRarity):
 	weaponName = wName
 	damage = wDamage
