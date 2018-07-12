@@ -55,7 +55,7 @@ func calculateForce(event):
 	fuerza.y = -(event.y - centroControl.y)/(sizeCentro.y/2)
 	if fuerza.length_squared() > 1:
 		fuerza = fuerza / fuerza.length()
-	get_node(\"Label\").text = \"x:\"+str(fuerza.x)+\" y:\"+str(fuerza.y)
+	#get_node(\"Label\").text = \"x:\"+str(fuerza.x)+\" y:\"+str(fuerza.y)
 	pass"
 _sections_unfolded = [ "Resource" ]
 
@@ -86,6 +86,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Label" type="Label" parent="." index="2"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

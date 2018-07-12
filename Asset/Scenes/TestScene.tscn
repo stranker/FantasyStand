@@ -20,7 +20,12 @@ func _on_CreateEnemy_button_down():
 	var e = enemy.instance()
 	$Enemies.call_deferred(\"add_child\",e)
 	e.global_position = $CreateEnemy/Position2D.global_position
-	pass"
+	pass
+
+func _on_Button_button_down():
+	Global.player.add_stats()
+	pass # replace with function body
+"
 _sections_unfolded = [ "Resource" ]
 
 [node name="TestScene" type="Node2D"]
@@ -108,6 +113,33 @@ _sections_unfolded = [ "Z Index" ]
 
 position = Vector2( 1061.09, 287.039 )
 
+[node name="Button" type="Button" parent="." index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 408.0
+margin_top = 544.0
+margin_right = 542.0
+margin_bottom = 591.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "ADD STATS"
+flat = false
+align = 1
+
 [connection signal="button_down" from="CreateEnemy" to="." method="_on_CreateEnemy_button_down"]
+
+[connection signal="button_down" from="Button" to="." method="_on_Button_button_down"]
 
 
