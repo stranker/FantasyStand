@@ -2,15 +2,12 @@ extends "res://Asset/Weapons/Weapon.gd"
 
 
 func _ready():
-	create_weapon("test",1,1,NORMAL)
+	create_weapon("test",1,2,1,NORMAL)
 	pass
 
 func attack():
 	if !attacking:
 		attacking = true
-		var attackSpeed = Global.player.agility / 5
-		if attackSpeed < 1:
-			attackSpeed = 1
 		$Anim.play("Attack",-1, attackSpeed)
 	pass
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Asset/Font/HARNGTON.TTF" type="DynamicFontData" id=1]
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=1]
 
 resource_name = "MainMenu.gd"
 script/source = "extends Control
@@ -15,7 +15,7 @@ func _on_Play_button_down():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 
 size = 80
 use_mipmaps = false
@@ -23,7 +23,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 
 size = 40
 use_mipmaps = false
@@ -31,7 +31,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="MainMenu" type="Control" index="0"]
+[node name="MainMenu" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -43,7 +43,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = SubResource( 3 )
+script = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="." index="0"]
 
@@ -95,7 +95,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 text = "Fantasy Stand"
@@ -123,7 +123,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null

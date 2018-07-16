@@ -7,20 +7,44 @@ script/source = "extends Node2D
 
 var tempEnemy = preload(\"res://Asset/Enemies/TempEnemy.tscn\")
 var enemyCount = 5
+var waves = 2
+
+func _process(delta):
+	if $Enemies.get_child_count() <= 0 and waves <= 0:
+		if $WinTimer.is_stopped():
+			$WinTimer.start()
+	pass
 
 func _ready():
 	$SpawnTimer.start()
 	pass
 
-
 func _on_SpawnTimer_timeout():
-	if enemyCount > 0:
-		var e = tempEnemy.instance()
-		call_deferred(\"add_child\",e)
-		e.global_position = $Pos.position
-		enemyCount -= 1
-	else:
-		$SpawnTimer.stop()
+	if waves > 0:
+		if enemyCount > 0:
+			var e = tempEnemy.instance()
+			$Enemies.call_deferred(\"add_child\",e)
+			e.global_position = $Pos.position
+			enemyCount -= 1
+		else:
+			$SpawnTimer.stop()
+			waves -= 1
+			$WaveTimer.start()
+	pass # replace with function body
+
+func _on_WaveTimer_timeout():
+	$SpawnTimer.start()
+	$WaveTimer.stop()
+	enemyCount = 5
+	pass # replace with function body
+
+func kill_enemies():
+	for i in $Enemies.get_children():
+		i.get_damage(9999)
+	pass
+
+func _on_WinTimer_timeout():
+	Global.end_level()
 	pass # replace with function body
 "
 _sections_unfolded = [ "Resource" ]
@@ -36,8 +60,28 @@ wait_time = 1.0
 one_shot = false
 autostart = true
 
-[node name="Pos" type="Position2D" parent="." index="1"]
+[node name="WaveTimer" type="Timer" parent="." index="1"]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = false
+autostart = false
+
+[node name="Pos" type="Position2D" parent="." index="2"]
+
+[node name="Enemies" type="Node2D" parent="." index="3"]
+
+[node name="WinTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = false
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
+
+[connection signal="timeout" from="WinTimer" to="." method="_on_WinTimer_timeout"]
 
 

@@ -10,13 +10,13 @@ script/source = "extends \"res://Asset/Weapons/Weapon.gd\"
 var arrow = preload(\"res://Asset/Weapons/Range/Arrow.tscn\")
 
 func _ready():
-	create_weapon(\"bow\",2,1,NORMAL)
+	create_weapon(\"bow\",2,1.2,1,NORMAL)
 	pass
 
 func attack():
 	if !attacking:
 		attacking = true
-		$Anim.play(\"Attack\")
+		$Anim.play(\"Attack\",-1,attackSpeed)
 		create_arrow()
 	pass
 

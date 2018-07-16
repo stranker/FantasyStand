@@ -32,7 +32,7 @@ _sections_unfolded = [ "Resource" ]
 custom_solver_bias = 0.0
 extents = Vector2( 5.82482, 10 )
 
-[node name="Wall" type="StaticBody2D" index="0"]
+[node name="Wall" type="StaticBody2D"]
 
 input_pickable = false
 collision_layer = 1

@@ -14,15 +14,14 @@ func _process(delta):
 	translate(delta * speed * Vector2(1,0))
 	pass
 
-func _on_Arrow_body_entered( body ):
-	if body.is_in_group(\"Enemy\"):
-		body.get_damage(damage)
-		queue_free()
-	pass # replace with function body
-
-
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
+	pass # replace with function body
+
+func _on_Arrow_area_entered(area):
+	if area.is_in_group(\"Enemy\"):
+		area.get_parent().get_damage(damage)
+		queue_free()
 	pass # replace with function body
 "
 _sections_unfolded = [ "Resource" ]
@@ -57,7 +56,7 @@ shape = SubResource( 2 )
 
 rect = Rect2( -10, -10, 20, 20 )
 
-[connection signal="body_entered" from="." to="." method="_on_Arrow_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_Arrow_area_entered"]
 
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 
