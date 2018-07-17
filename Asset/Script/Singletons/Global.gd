@@ -12,14 +12,20 @@ var player = null
 var cantCompanion
 
 func _ready():
-	if !wall:
-		wallLife = 55
-		wallMaxLife = 230
-		wallLevel = 2
+#	if !wall:
+#		wallLife = 55
+#		wallMaxLife = 230
+#		wallLevel = 2
+	pass
+
+func repair_wall(cost):
+	gold -= cost
+	wa
 	pass
 
 func end_level():
 	wallLife = wall.life
 	wallMaxLife = wall.maxLife
+	wallLevel = wall.level
 	get_tree().change_scene("res://Asset/Scenes/UpgradeScene.tscn")
 	pass

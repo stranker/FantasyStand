@@ -9,6 +9,7 @@ script/source = "extends StaticBody2D
 
 var maxLife = 100
 var life
+var level = 1
 
 func _ready():
 	add_to_group(\"Wall\")

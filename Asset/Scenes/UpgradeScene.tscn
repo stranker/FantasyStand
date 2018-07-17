@@ -25,8 +25,9 @@ func update_cost():
 	repairPoints = Global.wallMaxLife/10
 	nextWallLevel = Global.wallLevel + 1
 	costRepair = repairPoints * 5
-	costUpgrade = Global.wallLevel * 1000
+	costUpgrade =nextWallLevel * 1000
 	costWeaponSearch = Global.level * 100
+	costCompanionSearch = Global.level * 200
 	pass
 
 func set_labels():
@@ -35,6 +36,8 @@ func set_labels():
 	$MC/CC/C/Wall/HP.text = str(Global.wallLife) + \"/\" + str(Global.wallMaxLife)
 	$MC/CC/C/Wall/RepairInfo.text = \"Repair \" + str(repairPoints) + \" HP\"
 	$MC/CC/C/Wall/UpgradeInfo.text = \"Upgrade to lvl \" + str(nextWallLevel)
+	$MC/CC/C/Search/Weapon/WeaponSearch.set_label(str(costWeaponSearch))
+	$MC/CC/C/Search/Companion/CompanionSearch.set_label(str(costCompanionSearch))
 	$MC/CC/C/Wall/Repair.set_label(str(costRepair))
 	$MC/CC/C/Wall/Upgrade.set_label(str(costUpgrade))
 	pass
@@ -49,17 +52,27 @@ func _on_Upgrade_button_down():
 
 func _on_Repair_button_down():
 	if Global.gold >= costRepair:
-		Global.gold -= costRepair
-		Global.wallLife += repairPoints
+		Global.repair_wall(costRepair)
 		update_cost()
 		set_labels()
 	pass # replace with function body
 
 func _on_WeaponSearch_button_down():
-	if
+	if Global.gold >= costWeaponSearch:
+		Global.gold -= costWeaponSearch
+		#SEARCH WEAPON
+		update_cost()
+		set_labels()
+		$MC/CC/C/Search/Weapon/WeaponSearch.disabled = true
 	pass # replace with function body
 
 func _on_CompanionSearch_button_down():
+	if Global.gold >= costCompanionSearch:
+		Global.gold -= costCompanionSearch
+		#SEARC COMPANION
+		update_cost()
+		set_labels()
+		$MC/CC/C/Search/Companion/CompanionSearch.disabled = true
 	pass # replace with function body
 "
 _sections_unfolded = [ "Resource" ]
@@ -172,6 +185,7 @@ size_flags_vertical = 1
 
 [node name="Wall" type="Label" parent="MC/CC/C" index="0"]
 
+editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
