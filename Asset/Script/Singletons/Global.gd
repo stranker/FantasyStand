@@ -1,6 +1,6 @@
 extends Node
 
-var gold = 0
+var gold = 999999
 var enemiesKilled = 0
 var level = 1
 var pointToSpend = 0
@@ -9,6 +9,7 @@ var wallLife
 var wallMaxLife
 var wallLevel
 var player = null
+var cantCompanion
 
 func _ready():
 	if !wall:

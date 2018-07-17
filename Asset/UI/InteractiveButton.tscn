@@ -13,14 +13,20 @@ _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="GDScript" id=2]
 
+resource_name = "InteractiveButton.gd"
 script/source = "extends Button
 
 func _ready():
+	pass
+
+func set_label(string):
+	$C/Icon/Cant.text = string
 	pass"
+_sections_unfolded = [ "Resource" ]
 
 [sub_resource type="DynamicFont" id=3]
 
-size = 24
+size = 20
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
@@ -28,13 +34,13 @@ _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=4]
 
-size = 16
+size = 18
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="InteractiveButton" type="Button"]
+[node name="InteractiveButton" type="Button" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -86,13 +92,11 @@ _sections_unfolded = [ "Rect", "Size Flags", "Visibility", "custom_colors", "cus
 
 [node name="C" type="Container" parent="." index="1"]
 
-anchor_left = 0.5
+anchor_left = 0.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -70.0
 margin_top = -24.0
-margin_right = 70.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -107,8 +111,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
+margin_left = -23.0
 margin_top = -10.0
+margin_right = -3.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 16, 16 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -128,10 +133,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 2.0
+margin_left = 1.0
 margin_top = -11.0
-margin_right = 42.0
-margin_bottom = 9.0
+margin_right = 41.0
+margin_bottom = 12.0
 rect_min_size = Vector2( 40, 14 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false

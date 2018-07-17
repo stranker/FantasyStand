@@ -11,15 +11,22 @@ script/source = "extends Control
 
 var repairPoints
 var nextWallLevel
+var costRepair
+var costUpgrade
+var costWeaponSearch
+var costCompanionSearch
 
 func _ready():
-	initialize()
+	update_cost()
 	set_labels()
 	pass
 
-func initialize():
+func update_cost():
 	repairPoints = Global.wallMaxLife/10
 	nextWallLevel = Global.wallLevel + 1
+	costRepair = repairPoints * 5
+	costUpgrade = Global.wallLevel * 1000
+	costWeaponSearch = Global.level * 100
 	pass
 
 func set_labels():
@@ -28,18 +35,28 @@ func set_labels():
 	$MC/CC/C/Wall/HP.text = str(Global.wallLife) + \"/\" + str(Global.wallMaxLife)
 	$MC/CC/C/Wall/RepairInfo.text = \"Repair \" + str(repairPoints) + \" HP\"
 	$MC/CC/C/Wall/UpgradeInfo.text = \"Upgrade to lvl \" + str(nextWallLevel)
+	$MC/CC/C/Wall/Repair.set_label(str(costRepair))
+	$MC/CC/C/Wall/Upgrade.set_label(str(costUpgrade))
 	pass
 
 func _on_Upgrade_button_down():
+	if Global.gold >= costUpgrade:
+		Global.gold -= costUpgrade
+		Global.wallLevel += 1
+		update_cost()
+		set_labels()
 	pass # replace with function body
 
 func _on_Repair_button_down():
-	#Global.wall.repair(repairPoints)
-	Global.wallLife += repairPoints
-	set_labels()
+	if Global.gold >= costRepair:
+		Global.gold -= costRepair
+		Global.wallLife += repairPoints
+		update_cost()
+		set_labels()
 	pass # replace with function body
 
 func _on_WeaponSearch_button_down():
+	if
 	pass # replace with function body
 
 func _on_CompanionSearch_button_down():
@@ -63,7 +80,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=4]
 
 size = 20
 use_mipmaps = true
@@ -71,7 +88,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 
 size = 30
 use_mipmaps = false
@@ -79,7 +96,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 
 size = 40
 use_mipmaps = false
@@ -203,7 +220,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Rect", "custom_fonts" ]
 
-[node name="InteractiveButton" parent="MC/CC/C/Wall" index="1" instance=ExtResource( 2 )]
+[node name="Repair" parent="MC/CC/C/Wall" index="1" instance=ExtResource( 2 )]
 
 editor/display_folded = true
 margin_left = 50.0
@@ -211,21 +228,13 @@ margin_top = 110.0
 margin_right = 160.0
 margin_bottom = 160.0
 
-[node name="ButtonLabel" parent="MC/CC/C/Wall/InteractiveButton" index="0"]
-
-text = "Repair"
-
-[node name="InteractiveButton2" parent="MC/CC/C/Wall" index="2" instance=ExtResource( 2 )]
+[node name="Upgrade" parent="MC/CC/C/Wall" index="2" instance=ExtResource( 2 )]
 
 editor/display_folded = true
 margin_left = 200.0
 margin_top = 110.0
 margin_right = 310.0
 margin_bottom = 160.0
-
-[node name="ButtonLabel" parent="MC/CC/C/Wall/InteractiveButton2" index="0"]
-
-text = "Upgrade"
 
 [node name="RepairInfo" type="Label" parent="MC/CC/C/Wall" index="3"]
 
@@ -243,7 +252,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 text = "Repair 10 HP"
 align = 1
 percent_visible = 1.0
@@ -267,7 +276,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 text = "Upgrade to lvl 2"
 align = 1
 percent_visible = 1.0
@@ -277,7 +286,6 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Search" type="Label" parent="MC/CC/C" index="1"]
 
-editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -325,16 +333,12 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Rect", "custom_fonts" ]
 
-[node name="InteractiveButton" parent="MC/CC/C/Search/Weapon" index="0" instance=ExtResource( 2 )]
+[node name="WeaponSearch" parent="MC/CC/C/Search/Weapon" index="0" instance=ExtResource( 2 )]
 
 editor/display_folded = true
 margin_left = 230.0
 margin_right = 330.0
 margin_bottom = 50.0
-
-[node name="ButtonLabel" parent="MC/CC/C/Search/Weapon/InteractiveButton" index="0"]
-
-text = "Search"
 
 [node name="Companion" type="Label" parent="MC/CC/C/Search" index="1"]
 
@@ -360,7 +364,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Rect", "custom_fonts" ]
 
-[node name="InteractiveButton2" parent="MC/CC/C/Search/Companion" index="0" instance=ExtResource( 2 )]
+[node name="CompanionSearch" parent="MC/CC/C/Search/Companion" index="0" instance=ExtResource( 2 )]
 
 editor/display_folded = true
 margin_left = 230.0
@@ -434,7 +438,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -485,7 +489,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -536,7 +540,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -587,7 +591,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -613,7 +617,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "STAT POINTS:"
 align = 1
 percent_visible = 1.0
@@ -639,7 +643,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "GOLD 9999"
 align = 1
 percent_visible = 1.0
@@ -647,15 +651,12 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[connection signal="button_down" from="MC/CC/C/Wall/InteractiveButton" to="." method="_on_Repair_button_down"]
+[connection signal="button_down" from="MC/CC/C/Wall/Repair" to="." method="_on_Repair_button_down"]
 
-[connection signal="button_down" from="MC/CC/C/Wall/InteractiveButton2" to="." method="_on_Upgrade_button_down"]
+[connection signal="button_down" from="MC/CC/C/Wall/Upgrade" to="." method="_on_Upgrade_button_down"]
 
-[connection signal="button_down" from="MC/CC/C/Search/Weapon/InteractiveButton" to="." method="_on_WeaponSearch_button_down"]
+[connection signal="button_down" from="MC/CC/C/Search/Weapon/WeaponSearch" to="." method="_on_WeaponSearch_button_down"]
 
-[connection signal="button_down" from="MC/CC/C/Search/Companion/InteractiveButton2" to="." method="_on_CompanionSearch_button_down"]
+[connection signal="button_down" from="MC/CC/C/Search/Companion/CompanionSearch" to="." method="_on_CompanionSearch_button_down"]
 
 
-[editable path="MC/CC/C/Wall/InteractiveButton"]
-[editable path="MC/CC/C/Wall/InteractiveButton2"]
-[editable path="MC/CC/C/Search/Weapon/InteractiveButton"]
