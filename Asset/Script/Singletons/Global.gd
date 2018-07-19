@@ -12,15 +12,19 @@ var player = null
 var cantCompanion
 
 func _ready():
-#	if !wall:
-#		wallLife = 55
-#		wallMaxLife = 230
-#		wallLevel = 2
 	pass
 
-func repair_wall(cost):
+func repair_wall(cost, repairPoints):
+	if wallLife < wallMaxLife:
+		gold -= cost
+		wallLife += repairPoints
+		if wallLife > wallMaxLife:
+			wallLife = wallMaxLife
+	pass
+
+func upgrade_wall(cost):
 	gold -= cost
-	wa
+	wallLevel += 1
 	pass
 
 func end_level():

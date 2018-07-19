@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Asset/Font/HARNGTON.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://Asset/UI/InteractiveButton.tscn" type="PackedScene" id=2]
@@ -19,6 +19,7 @@ var costCompanionSearch
 func _ready():
 	update_cost()
 	set_labels()
+	$ResultPanel.hide()
 	pass
 
 func update_cost():
@@ -44,15 +45,14 @@ func set_labels():
 
 func _on_Upgrade_button_down():
 	if Global.gold >= costUpgrade:
-		Global.gold -= costUpgrade
-		Global.wallLevel += 1
+		Global.upgrade_wall(costUpgrade)
 		update_cost()
 		set_labels()
 	pass # replace with function body
 
 func _on_Repair_button_down():
 	if Global.gold >= costRepair:
-		Global.repair_wall(costRepair)
+		Global.repair_wall(costRepair, repairPoints)
 		update_cost()
 		set_labels()
 	pass # replace with function body
@@ -117,6 +117,22 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Settings" ]
 
+[sub_resource type="DynamicFont" id=7]
+
+size = 40
+use_mipmaps = false
+use_filter = true
+font_data = ExtResource( 1 )
+_sections_unfolded = [ "Font", "Resource", "Settings" ]
+
+[sub_resource type="DynamicFont" id=8]
+
+size = 30
+use_mipmaps = false
+use_filter = true
+font_data = ExtResource( 1 )
+_sections_unfolded = [ "Font", "Resource", "Settings" ]
+
 [node name="UpgradeScene" type="Control" index="0"]
 
 anchor_left = 0.0
@@ -133,6 +149,7 @@ script = SubResource( 1 )
 
 [node name="MC" type="MarginContainer" parent="." index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -387,7 +404,6 @@ margin_bottom = 50.0
 
 [node name="Player" type="Label" parent="MC/CC/C" index="2"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 0.0
@@ -663,6 +679,174 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Next" type="Button" parent="MC/CC/C" index="5"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -65.0
+margin_top = 231.0
+margin_right = 65.0
+margin_bottom = 281.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Next"
+flat = false
+align = 1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="ResultPanel" type="Panel" parent="." index="1"]
+
+editor/display_folded = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -452.0
+margin_top = -250.0
+margin_right = 458.0
+margin_bottom = 260.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="WeaponResult" type="Label" parent="ResultPanel" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -137.0
+margin_top = 71.0
+margin_right = 136.0
+margin_bottom = 119.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 7 )
+text = "Weapons found"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+
+[node name="Result" type="Label" parent="ResultPanel/WeaponResult" index="0"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -136.5
+margin_top = 2.0
+margin_right = 136.5
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 8 )
+text = "Result"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+
+[node name="CompanionsResult" type="Label" parent="ResultPanel" index="1"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -165.0
+margin_top = -24.0
+margin_right = 164.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 7 )
+text = "Companions found"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+
+[node name="Result" type="Label" parent="ResultPanel/CompanionsResult" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -134.5
+margin_top = 50.0
+margin_right = 138.5
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 8 )
+text = "Result"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+
+[node name="Next" type="Button" parent="ResultPanel" index="2"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -65.0
+margin_top = -99.0
+margin_right = 65.0
+margin_bottom = -49.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Next"
+flat = false
+align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
 [connection signal="button_down" from="MC/CC/C/Wall/Repair" to="." method="_on_Repair_button_down"]
