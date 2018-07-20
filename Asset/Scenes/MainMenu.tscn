@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Asset/Font/consola.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="GDScript" id=1]
 
@@ -21,15 +21,7 @@ func _on_Credits_pressed():
 "
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="DynamicFont" id=2]
-
-size = 150
-use_mipmaps = false
-use_filter = true
-font_data = ExtResource( 1 )
-_sections_unfolded = [ "Settings" ]
-
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 
 size = 80
 use_mipmaps = false
@@ -37,15 +29,15 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 
-size = 60
+size = 40
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -99,20 +91,19 @@ anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
 anchor_bottom = 0.0
-margin_left = -358.0
-margin_top = 81.0
-margin_right = 357.0
-margin_bottom = 192.0
+margin_left = -286.0
+margin_top = 86.0
+margin_right = 286.0
+margin_bottom = 181.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
-custom_constants/shadow_offset_y = 5
 text = "Fantasy Stand"
 align = 1
 valign = 1
@@ -130,7 +121,7 @@ anchor_bottom = 0.5
 margin_left = -106.0
 margin_top = 40.0
 margin_right = 107.0
-margin_bottom = 129.0
+margin_bottom = 131.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -146,7 +137,7 @@ group = null
 text = "Play"
 flat = false
 align = 1
-_sections_unfolded = [ "custom_colors", "custom_constants", "custom_fonts" ]
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="Credits" type="Button" parent="MC/C" index="2"]
 
@@ -157,7 +148,7 @@ anchor_bottom = 0.5
 margin_left = -106.0
 margin_top = 150.0
 margin_right = 107.0
-margin_bottom = 219.0
+margin_bottom = 203.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -165,7 +156,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
