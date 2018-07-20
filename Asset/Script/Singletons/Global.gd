@@ -33,3 +33,7 @@ func end_level():
 	wallLevel = wall.level
 	get_tree().change_scene("res://Asset/Scenes/UpgradeScene.tscn")
 	pass
+
+func next_level():
+	level += 1
+	pass

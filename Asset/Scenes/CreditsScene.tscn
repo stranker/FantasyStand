@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Asset/Font/consola.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Asset/Font/yoster.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="GDScript" id=1]
 
@@ -16,15 +16,15 @@ func _on_Back_button_down():
 
 [sub_resource type="DynamicFont" id=2]
 
-size = 60
+size = 26
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=5]
 
-size = 25
+size = 50
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 2 )
@@ -37,20 +37,21 @@ length = 15.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("MC/C/Label:rect_position")
+tracks/0/path = NodePath("MC/C/Credits:custom_colors/font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 15 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 3, 6, 9, 12, 15 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 2, 600 ), Vector2( 2, -660 ) ]
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.992188, 1, 0, 1 ), Color( 0.333969, 0.994141, 0, 1 ), Color( 0, 0.66276, 0.631693, 1 ), Color( 0.498561, 0.315847, 0.5, 1 ), Color( 1, 0, 0, 1 ) ]
 }
 
-[node name="CreditsScene" type="Control" index="0"]
+[node name="CreditsScene" type="Control"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -65,6 +66,7 @@ script = SubResource( 1 )
 
 [node name="MC" type="MarginContainer" parent="." index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -97,16 +99,16 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Label" type="Label" parent="MC/C" index="0"]
+[node name="Credits" type="Label" parent="MC/C" index="0"]
 
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -496.0
-margin_top = 86.2786
-margin_right = 489.0
-margin_bottom = 717.279
+margin_left = -494.0
+margin_top = -171.0
+margin_right = 494.0
+margin_bottom = 171.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -114,6 +116,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.746845, 0.159457, 0.252428, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/line_spacing = 8
 custom_constants/shadow_as_outline = 3
@@ -125,7 +128,8 @@ Programmer
 Daniel Natarelli
 
 Font
-FontleroyBrown - https://www.fontsquirrel.com/fonts/FontleroyBrown"
+FontleroyBrown - https://www.fontsquirrel.com/fonts/FontleroyBrown
+YosterIsland - https://cooltext.com/Download-Font-Yoster+Island"
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -139,8 +143,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -76.0
-margin_top = -50.0
+margin_top = -57.0
 margin_right = 76.0
+margin_bottom = 1.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -148,12 +153,12 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "GO BACK"
+text = "Go Back"
 flat = false
 align = 1
 _sections_unfolded = [ "custom_fonts" ]

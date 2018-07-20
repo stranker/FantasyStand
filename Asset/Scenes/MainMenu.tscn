@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Asset/Font/yoster.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="GDScript" id=1]
 
@@ -23,18 +24,18 @@ _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="DynamicFont" id=2]
 
-size = 150
+size = 100
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
-_sections_unfolded = [ "Settings" ]
+_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=3]
 
 size = 80
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=4]
@@ -42,7 +43,7 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 60
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [node name="MainMenu" type="Control"]
@@ -96,13 +97,13 @@ size_flags_vertical = 1
 [node name="Title" type="Label" parent="MC/C" index="0"]
 
 anchor_left = 0.5
-anchor_top = 0.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.0
-margin_left = -358.0
-margin_top = 81.0
-margin_right = 357.0
-margin_bottom = 192.0
+anchor_bottom = 0.5
+margin_left = -402.0
+margin_top = -163.0
+margin_right = 402.0
+margin_bottom = -52.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
