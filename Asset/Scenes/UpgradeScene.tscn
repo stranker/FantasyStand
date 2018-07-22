@@ -36,7 +36,7 @@ func update_cost():
 func set_labels():
 	$MC/CC/C/Gold.text = \"GOLD \" + str(Global.gold)
 	$MC/CC/C/StatPoints.text = \"STAT POINTS: \"+ str(Global.pointToSpend)
-	$MC/CC/C/Wall/HP.text = str(Global.wallLife) + \"/\" + str(Global.wallMaxLife)
+	$MC/CC/C/Wall/HP.text = str(Global.wallLife) + \"-\" + str(Global.wallMaxLife)
 	$MC/CC/C/Wall/RepairInfo.text = \"Repair \" + str(repairPoints) + \" HP\"
 	$MC/CC/C/Wall/UpgradeInfo.text = \"Upgrade to lvl \" + str(nextWallLevel)
 	$MC/CC/C/Search/Weapon/WeaponSearch.set_label(str(costWeaponSearch))
@@ -112,7 +112,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 
 size = 40
 use_mipmaps = false
@@ -120,7 +120,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 
 size = 50
 use_mipmaps = false
@@ -144,7 +144,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Resource", "Settings" ]
 
-[node name="UpgradeScene" type="Control" index="0"]
+[node name="UpgradeScene" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -212,7 +212,6 @@ size_flags_vertical = 1
 
 [node name="Wall" type="Label" parent="MC/CC/C" index="0"]
 
-editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -234,7 +233,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "custom_fonts", "custom_styles" ]
 
 [node name="HP" type="Label" parent="MC/CC/C/Wall" index="0"]
 
@@ -242,10 +241,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -88.0
+margin_left = -240.0
 margin_top = -3.0
-margin_right = 88.0
-margin_bottom = 33.0
+margin_right = 240.0
+margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -253,13 +252,13 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
-text = "50:50"
+text = "50-50"
 align = 1
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect", "custom_fonts" ]
+_sections_unfolded = [ "Rect", "custom_fonts", "custom_styles" ]
 
 [node name="Repair" parent="MC/CC/C/Wall" index="1" instance=ExtResource( 2 )]
 
@@ -268,6 +267,7 @@ margin_left = 30.0
 margin_top = 110.0
 margin_right = 140.0
 margin_bottom = 160.0
+_sections_unfolded = [ "custom_fonts", "custom_styles" ]
 
 [node name="ButtonLabel" parent="MC/CC/C/Wall/Repair" index="0"]
 
@@ -275,10 +275,12 @@ text = "Repair"
 
 [node name="Upgrade" parent="MC/CC/C/Wall" index="2" instance=ExtResource( 2 )]
 
+editor/display_folded = true
 margin_left = 220.0
 margin_top = 110.0
 margin_right = 330.0
 margin_bottom = 160.0
+_sections_unfolded = [ "custom_fonts", "custom_styles" ]
 
 [node name="ButtonLabel" parent="MC/CC/C/Wall/Upgrade" index="0"]
 
@@ -306,7 +308,7 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "custom_fonts", "custom_styles" ]
 
 [node name="UpgradeInfo" type="Label" parent="MC/CC/C/Wall" index="4"]
 
@@ -330,7 +332,7 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "custom_fonts", "custom_styles" ]
 
 [node name="Search" type="Label" parent="MC/CC/C" index="1"]
 
@@ -355,10 +357,11 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "custom_fonts", "custom_styles" ]
 
 [node name="Weapon" type="Label" parent="MC/CC/C/Search" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 0.0
@@ -379,7 +382,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect", "custom_fonts" ]
+_sections_unfolded = [ "Rect", "custom_fonts", "custom_styles" ]
 
 [node name="WeaponSearch" parent="MC/CC/C/Search/Weapon" index="0" instance=ExtResource( 2 )]
 
@@ -394,6 +397,7 @@ text = "Search"
 
 [node name="Companion" type="Label" parent="MC/CC/C/Search" index="1"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 0.0
@@ -414,7 +418,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect", "custom_fonts" ]
+_sections_unfolded = [ "Rect", "custom_fonts", "custom_styles" ]
 
 [node name="CompanionSearch" parent="MC/CC/C/Search/Companion" index="0" instance=ExtResource( 2 )]
 
@@ -449,7 +453,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "custom_fonts", "custom_styles" ]
 
 [node name="Str" type="Label" parent="MC/CC/C/Player" index="0"]
 
@@ -473,7 +477,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect", "custom_fonts" ]
+_sections_unfolded = [ "Rect", "custom_fonts", "custom_styles" ]
 
 [node name="Add" type="Button" parent="MC/CC/C/Player/Str" index="0"]
 
@@ -499,7 +503,7 @@ group = null
 text = "+"
 flat = false
 align = 1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "custom_styles" ]
 
 [node name="Agi" type="Label" parent="MC/CC/C/Player" index="1"]
 
@@ -667,7 +671,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "STAT POINTS:"
 align = 1
 percent_visible = 1.0
@@ -693,7 +697,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "GOLD 9999"
 align = 1
 percent_visible = 1.0
@@ -718,7 +722,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -859,7 +863,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null

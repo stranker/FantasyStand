@@ -7,14 +7,12 @@
 resource_name = "Wall.gd"
 script/source = "extends StaticBody2D
 
-var maxLife = 100
+var maxLife
 var life
-var level = 1
+var level
 
 func _ready():
-	add_to_group(\"Wall\")
-	life = maxLife
-	Global.wall = self
+	initialize()
 	pass
 
 func get_damage(val):
@@ -25,7 +23,20 @@ func get_damage(val):
 	pass
 
 func is_alive():
-	return life > 0"
+	return life > 0
+
+func initialize():
+	add_to_group(\"Wall\")
+	if Global.wallMaxLife:
+		maxLife = Global.wallMaxLife
+		life = Global.wallLife
+		level = Global.wallLevel
+	else:
+		maxLife = 100
+		life = maxLife
+		level = 1
+	Global.wall = self
+	pass"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="RectangleShape2D" id=2]

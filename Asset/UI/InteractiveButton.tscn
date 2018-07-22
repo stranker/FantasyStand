@@ -1,19 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Asset/Font/HARNGTON.TTF" type="DynamicFontData" id=1]
-[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://Asset/Sprites/UI/Gold.png" type="Texture" id=3]
-[ext_resource path="res://Asset/Font/yoster.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Asset/Sprites/UI/Gold.png" type="Texture" id=2]
+[ext_resource path="res://Asset/Font/yoster.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="DynamicFont" id=1]
-
-size = 30
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 1 )
-_sections_unfolded = [ "Font", "Settings" ]
-
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 
 resource_name = "InteractiveButton.gd"
 script/source = "extends Button
@@ -22,24 +13,24 @@ func _ready():
 	pass
 
 func set_label(string):
-	$C/Icon/Cant.text = string
+	$C/Cant.text = string
 	pass"
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 
 size = 30
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 2 )
+font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 
 size = 20
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 4 )
+font_data = ExtResource( 3 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [node name="InteractiveButton" type="Button"]
@@ -57,14 +48,13 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 1 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
 flat = false
 align = 1
-script = SubResource( 2 )
+script = SubResource( 1 )
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="ButtonLabel" type="Label" parent="." index="0"]
@@ -82,7 +72,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 5
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "TEST"
 align = 1
@@ -90,7 +80,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect", "Size Flags", "Visibility", "custom_colors", "custom_constants", "custom_fonts" ]
+_sections_unfolded = [ "Rect", "Size Flags", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
 
 [node name="C" type="Container" parent="." index="1"]
 
@@ -113,9 +103,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -23.0
+margin_left = -38.0
 margin_top = -10.0
-margin_right = -3.0
+margin_right = -18.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 16, 16 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -124,20 +114,20 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
 _sections_unfolded = [ "Rect" ]
 
-[node name="Cant" type="Label" parent="C/Icon" index="0"]
+[node name="Cant" type="Label" parent="C" index="1"]
 
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -13.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -18.0
+margin_top = -26.0
 margin_right = 40.0
-margin_bottom = 13.0
 rect_min_size = Vector2( 40, 14 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -145,9 +135,9 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "9K"
+text = "999"
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0

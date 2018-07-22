@@ -25,6 +25,8 @@ func repair_wall(cost, repairPoints):
 func upgrade_wall(cost):
 	gold -= cost
 	wallLevel += 1
+	wallMaxLife += 50
+	wallLife = wallMaxLife
 	pass
 
 func end_level():
