@@ -1,41 +1,93 @@
 extends Node
 
-var gold = 999999
-var enemiesKilled = 0
-var level = 1
-var pointToSpend = 0
-var wall = null
-var wallLife
-var wallMaxLife
-var wallLevel
-var player = null
+var gold
+var enemiesKilled
+var level
+var pointToSpend
 var cantCompanion
+var wall = null
+var player = null
+
+var gameOverScene = "res://Asset/Scenes/GameOverScene.tscn"
+var gameScene = "res://Asset/Scenes/TestScene.tscn"
+var upgradeScene = "res://Asset/Scenes/UpgradeScene.tscn"
+
+class Wall:
+	var life = 100
+	var maxLife = 100
+	var level = 1
+	
+	func repair_wall(cost, repairPoints):
+		if life < maxLife:
+			Global.gold -= cost
+			life += repairPoints
+			if life > maxLife:
+				life = maxLife
+
+	func upgrade_wall(cost):
+		Global.gold -= cost
+		level += 1
+		maxLife += 50
+		life = maxLife
+	
+	func initialize():
+		maxLife = 100
+		life = maxLife
+		level = 1
+
+class Player:
+	var strength = 1
+	var agility = 1
+	var intelligence = 1
+	var luck = 1
+	var speed = 100
+	
+	func initialize():
+		speed = 100
+		strength = 1
+		agility = 1
+		intelligence = 1
+		luck = 1
+	
+	func add_stats(stre,agi,intel,lck):
+		strength += stre
+		agility += agi
+		intelligence += intel
+		luck += lck
 
 func _ready():
+	initialize()
 	pass
 
-func repair_wall(cost, repairPoints):
-	if wallLife < wallMaxLife:
-		gold -= cost
-		wallLife += repairPoints
-		if wallLife > wallMaxLife:
-			wallLife = wallMaxLife
+func new_game():
+	wall.initialize()
+	player.initialize()
+	gold = 9999
+	pointToSpend = 0
+	enemiesKilled = 0
+	level = 1
 	pass
 
-func upgrade_wall(cost):
-	gold -= cost
-	wallLevel += 1
-	wallMaxLife += 50
-	wallLife = wallMaxLife
+func initialize():
+	wall = Wall.new()
+	player = Player.new()
+	gold = 9999
+	pointToSpend = 0
+	enemiesKilled = 0
+	level = 1
 	pass
 
 func end_level():
-	wallLife = wall.life
-	wallMaxLife = wall.maxLife
-	wallLevel = wall.level
-	get_tree().change_scene("res://Asset/Scenes/UpgradeScene.tscn")
+	pointToSpend += 1
+	get_tree().change_scene(upgradeScene)
 	pass
 
 func next_level():
 	level += 1
+	get_tree().change_scene(gameScene)
+	pass
+
+func game_over():
+	get_tree().change_scene(gameOverScene)
+	new_game()
 	pass
