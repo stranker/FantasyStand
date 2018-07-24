@@ -8,11 +8,11 @@
 resource_name = "MainMenu.gd"
 script/source = "extends Control
 
-var gameScene = \"res://Asset/Scenes/TestScene.tscn\"
+var controlsScene = \"res://Asset/Scenes/ControlsScene.tscn\"
 var creditsScene = \"res://Asset/Scenes/CreditsScene.tscn\"
 
 func _on_Play_button_down():
-	get_tree().change_scene(gameScene)
+	get_tree().change_scene(controlsScene)
 	pass # replace with function body
 
 

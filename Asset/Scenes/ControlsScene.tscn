@@ -1,6 +1,31 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Asset/Font/HARNGTON.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://Asset/Font/yoster.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="GDScript" id=3]
+
+resource_name = "ControlScene.gd"
+script/source = "extends Control
+
+var gameScene = \"res://Asset/Scenes/TestScene.tscn\"
+
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+
+
+func _on_Next_button_down():
+	get_tree().change_scene(gameScene)
+	pass # replace with function body
+"
+_sections_unfolded = [ "Resource" ]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -8,7 +33,15 @@ size = 50
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
-_sections_unfolded = [ "Settings" ]
+_sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="DynamicFont" id=2]
+
+size = 50
+use_mipmaps = false
+use_filter = true
+font_data = ExtResource( 2 )
+_sections_unfolded = [ "Font", "Settings" ]
 
 [node name="ControlsScene" type="Control"]
 
@@ -22,6 +55,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+script = SubResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="." index="0"]
 
@@ -63,9 +97,10 @@ anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
 anchor_bottom = 0.0
-margin_left = -94.0
-margin_right = 94.0
-margin_bottom = 60.0
+margin_left = -121.0
+margin_top = 8.0
+margin_right = 121.0
+margin_bottom = 68.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -82,5 +117,34 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors", "custom_constants", "custom_fonts" ]
+
+[node name="Next" type="Button" parent="MarginContainer/Container" index="1"]
+
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -164.0
+margin_top = -90.0
+margin_right = -32.0
+margin_bottom = -20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Next"
+flat = false
+align = 1
+_sections_unfolded = [ "custom_fonts" ]
+
+[connection signal="button_down" from="MarginContainer/Container/Next" to="." method="_on_Next_button_down"]
 
 

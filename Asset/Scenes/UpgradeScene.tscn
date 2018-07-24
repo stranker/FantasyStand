@@ -51,8 +51,8 @@ func set_labels():
 	$MC/CC/C/Wall/Repair.set_label(str(costRepair))
 	$MC/CC/C/Wall/Upgrade.set_label(str(costUpgrade))
 	$MC/CC/C/Player/Str/Amount.text = str(Global.player.strength) + \" - +\" + str(pStr)
-	$MC/CC/C/Player/Int/Amount.text = str(Global.player.agility) + \" - +\" + str(pInt)
-	$MC/CC/C/Player/Agi/Amount.text = str(Global.player.intelligence) + \" - +\" + str(pAgi)
+	$MC/CC/C/Player/Int/Amount.text = str(Global.player.intelligence) + \" - +\" + str(pInt)
+	$MC/CC/C/Player/Agi/Amount.text = str(Global.player.agility) + \" - +\" + str(pAgi)
 	$MC/CC/C/Player/Luck/Amount.text = str(Global.player.luck) + \" - +\" + str(pLuck)
 	pass
 
@@ -181,7 +181,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=5]
 
 size = 26
 use_mipmaps = true
@@ -189,7 +189,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 
 size = 45
 use_mipmaps = false
@@ -197,7 +197,7 @@ use_filter = true
 font_data = ExtResource( 3 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=7]
 
 size = 50
 use_mipmaps = false
@@ -205,7 +205,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=8]
 
 size = 50
 use_mipmaps = false
@@ -213,7 +213,7 @@ use_filter = true
 font_data = ExtResource( 3 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=9]
 
 size = 40
 use_mipmaps = false
@@ -221,7 +221,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Resource", "Settings" ]
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=10]
 
 size = 30
 use_mipmaps = false
@@ -229,7 +229,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Resource", "Settings" ]
 
-[node name="UpgradeScene" type="Control" index="0"]
+[node name="UpgradeScene" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -297,6 +297,7 @@ size_flags_vertical = 1
 
 [node name="Wall" type="Label" parent="MC/CC/C" index="0"]
 
+editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -605,7 +606,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 5 )
 text = "999 - +19"
 percent_visible = 1.0
 lines_skipped = 0
@@ -679,7 +680,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 5 )
 text = "999 - +19"
 percent_visible = 1.0
 lines_skipped = 0
@@ -753,7 +754,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 5 )
 text = "999 - +19"
 percent_visible = 1.0
 lines_skipped = 0
@@ -827,7 +828,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 5 )
 text = "999 - +19"
 percent_visible = 1.0
 lines_skipped = 0
@@ -851,7 +852,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -877,7 +878,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 text = "STAT POINTS:"
 align = 1
 percent_visible = 1.0
@@ -903,7 +904,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 text = "GOLD 9999"
 align = 1
 percent_visible = 1.0
@@ -928,7 +929,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -973,7 +974,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Weapons found"
 align = 1
 percent_visible = 1.0
@@ -997,7 +998,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 text = "Result"
 align = 1
 percent_visible = 1.0
@@ -1021,7 +1022,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Companions found"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1044,7 +1045,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 text = "Result"
 align = 1
 percent_visible = 1.0
@@ -1069,7 +1070,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
