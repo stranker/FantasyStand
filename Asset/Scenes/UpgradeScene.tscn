@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Asset/Font/yoster.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Asset/UI/InteractiveButton.tscn" type="PackedScene" id=2]
@@ -17,63 +17,70 @@ var costUpgrade
 var costWeaponSearch
 var costCompanionSearch
 var gameScene = \"res://Asset/Scenes/TestScene.tscn\"
+var points
+
+var pStr = 0
+var pAgi = 0
+var pInt = 0
+var pLuck = 0
 
 func _ready():
+	points = Global.pointToSpend
 	update_cost()
 	set_labels()
 	$ResultPanel.hide()
 	pass
 
 func update_cost():
-	repairPoints = Global.wallMaxLife/10
-	nextWallLevel = Global.wallLevel + 1
+	repairPoints = Global.wall.maxLife/10
+	nextWallLevel = Global.wall.level + 1
 	costRepair = repairPoints * 5
-	costUpgrade =nextWallLevel * 1000
+	costUpgrade = nextWallLevel * 1000
 	costWeaponSearch = Global.level * 100
 	costCompanionSearch = Global.level * 200
 	pass
 
 func set_labels():
 	$MC/CC/C/Gold.text = \"GOLD \" + str(Global.gold)
-	$MC/CC/C/StatPoints.text = \"STAT POINTS: \"+ str(Global.pointToSpend)
-	$MC/CC/C/Wall/HP.text = str(Global.wallLife) + \"-\" + str(Global.wallMaxLife)
+	$MC/CC/C/StatPoints.text = \"STAT POINTS: \"+ str(points)
+	$MC/CC/C/Wall/HP.text = str(Global.wall.life) + \"-\" + str(Global.wall.maxLife)
 	$MC/CC/C/Wall/RepairInfo.text = \"Repair \" + str(repairPoints) + \" HP\"
 	$MC/CC/C/Wall/UpgradeInfo.text = \"Upgrade to lvl \" + str(nextWallLevel)
 	$MC/CC/C/Search/Weapon/WeaponSearch.set_label(str(costWeaponSearch))
 	$MC/CC/C/Search/Companion/CompanionSearch.set_label(str(costCompanionSearch))
 	$MC/CC/C/Wall/Repair.set_label(str(costRepair))
 	$MC/CC/C/Wall/Upgrade.set_label(str(costUpgrade))
+	$MC/CC/C/Player/Str/Amount.text = str(Global.player.strength) + \" - +\" + str(pStr)
+	$MC/CC/C/Player/Int/Amount.text = str(Global.player.agility) + \" - +\" + str(pInt)
+	$MC/CC/C/Player/Agi/Amount.text = str(Global.player.intelligence) + \" - +\" + str(pAgi)
+	$MC/CC/C/Player/Luck/Amount.text = str(Global.player.luck) + \" - +\" + str(pLuck)
 	pass
 
 func _on_Upgrade_button_down():
 	if Global.gold >= costUpgrade:
-		Global.upgrade_wall(costUpgrade)
-		update_cost()
-		set_labels()
+		Global.wall.upgrade_wall(costUpgrade)
+		update_upgrade()
 	pass # replace with function body
 
 func _on_Repair_button_down():
 	if Global.gold >= costRepair:
-		Global.repair_wall(costRepair, repairPoints)
-		update_cost()
-		set_labels()
+		Global.wall.repair_wall(costRepair, repairPoints)
+		update_upgrade()
 	pass # replace with function body
 
 func _on_WeaponSearch_button_down():
 	if Global.gold >= costWeaponSearch:
 		Global.gold -= costWeaponSearch
 		#SEARCH WEAPON
-		update_cost()
-		set_labels()
+		update_upgrade()
 		$MC/CC/C/Search/Weapon/WeaponSearch.disabled = true
 	pass # replace with function body
 
 func _on_CompanionSearch_button_down():
 	if Global.gold >= costCompanionSearch:
 		Global.gold -= costCompanionSearch
-		#SEARC COMPANION
-		update_cost()
-		set_labels()
+		#SEARCH COMPANION
+		update_upgrade()
 		$MC/CC/C/Search/Companion/CompanionSearch.disabled = true
 	pass # replace with function body
 
@@ -83,14 +90,76 @@ func _on_Next_button_down():
 
 func _on_NextResultPanel_button_down():
 	Global.next_level()
-	get_tree().change_scene(gameScene)
+	Global.player.add_stats(pStr,pAgi,pInt,pLuck)
+	Global.pointToSpend = points
 	pass # replace with function body
-"
+
+func _on_Reset_button_down():
+	points = Global.pointToSpend
+	pStr = 0
+	pAgi = 0
+	pInt = 0
+	pLuck = 0
+	set_disable_add_buttons(false)
+	update_upgrade()
+	pass # replace with function body
+
+func update_upgrade():
+	update_cost()
+	set_labels()
+	pass
+
+func _on_AddSTR_button_down():
+	if can_spend_point():
+		spend_point()
+		pStr += 1
+	update_upgrade()
+	pass # replace with function body
+
+func _on_AddAGI_button_down():
+	if can_spend_point():
+		spend_point()
+		pAgi += 1
+	update_upgrade()
+	pass # replace with function body
+
+func _on_AddINT_button_down():
+	if can_spend_point():
+		spend_point()
+		pInt += 1
+	update_upgrade()
+	pass # replace with function body
+
+func _on_AddLCK_button_down():
+	if can_spend_point():
+		spend_point()
+		pLuck += 1
+	update_upgrade()
+	pass # replace with function body
+
+func can_spend_point():
+	return points > 0
+
+func spend_point():
+	points -= 1
+	update_upgrade()
+	if points == 0:
+		set_disable_add_buttons(true)
+	else:
+		set_disable_add_buttons(false)
+	pass
+
+func set_disable_add_buttons(val):
+	$MC/CC/C/Player/Agi/Add.disabled = val
+	$MC/CC/C/Player/Str/Add.disabled = val
+	$MC/CC/C/Player/Int/Add.disabled = val
+	$MC/CC/C/Player/Luck/Add.disabled = val
+	pass "
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="DynamicFont" id=2]
 
-size = 50
+size = 40
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
@@ -98,7 +167,7 @@ _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=3]
 
-size = 40
+size = 36
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
@@ -112,12 +181,20 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=10]
 
-size = 40
-use_mipmaps = false
+size = 26
+use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 1 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="DynamicFont" id=5]
+
+size = 45
+use_mipmaps = false
+use_filter = true
+font_data = ExtResource( 3 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=6]
@@ -125,10 +202,18 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 50
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 3 )
+font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=7]
+
+size = 50
+use_mipmaps = false
+use_filter = true
+font_data = ExtResource( 3 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="DynamicFont" id=8]
 
 size = 40
 use_mipmaps = false
@@ -136,7 +221,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Resource", "Settings" ]
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=9]
 
 size = 30
 use_mipmaps = false
@@ -144,7 +229,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Resource", "Settings" ]
 
-[node name="UpgradeScene" type="Control"]
+[node name="UpgradeScene" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -212,14 +297,15 @@ size_flags_vertical = 1
 
 [node name="Wall" type="Label" parent="MC/CC/C" index="0"]
 
+editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = 84.0
-margin_top = -140.0
+margin_top = -210.0
 margin_right = 444.0
-margin_bottom = -80.0
+margin_bottom = -150.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -233,7 +319,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="HP" type="Label" parent="MC/CC/C/Wall" index="0"]
 
@@ -241,9 +327,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -240.0
+margin_left = -88.0
 margin_top = -3.0
-margin_right = 240.0
+margin_right = 88.0
 margin_bottom = 38.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -252,13 +338,13 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
-text = "50-50"
+text = "50:50"
 align = 1
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect", "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "Rect", "custom_fonts" ]
 
 [node name="Repair" parent="MC/CC/C/Wall" index="1" instance=ExtResource( 2 )]
 
@@ -267,7 +353,6 @@ margin_left = 30.0
 margin_top = 110.0
 margin_right = 140.0
 margin_bottom = 160.0
-_sections_unfolded = [ "custom_fonts", "custom_styles" ]
 
 [node name="ButtonLabel" parent="MC/CC/C/Wall/Repair" index="0"]
 
@@ -280,7 +365,6 @@ margin_left = 220.0
 margin_top = 110.0
 margin_right = 330.0
 margin_bottom = 160.0
-_sections_unfolded = [ "custom_fonts", "custom_styles" ]
 
 [node name="ButtonLabel" parent="MC/CC/C/Wall/Upgrade" index="0"]
 
@@ -308,7 +392,7 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="UpgradeInfo" type="Label" parent="MC/CC/C/Wall" index="4"]
 
@@ -332,18 +416,19 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="Search" type="Label" parent="MC/CC/C" index="1"]
 
+editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = 44.0
-margin_top = 60.0
+margin_top = -10.0
 margin_right = 486.0
-margin_bottom = 120.0
+margin_bottom = 50.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -357,11 +442,10 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="Weapon" type="Label" parent="MC/CC/C/Search" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 0.0
@@ -382,7 +466,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect", "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "Rect", "custom_fonts" ]
 
 [node name="WeaponSearch" parent="MC/CC/C/Search/Weapon" index="0" instance=ExtResource( 2 )]
 
@@ -418,7 +502,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect", "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "Rect", "custom_fonts" ]
 
 [node name="CompanionSearch" parent="MC/CC/C/Search/Companion" index="0" instance=ExtResource( 2 )]
 
@@ -436,10 +520,10 @@ anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 0.0
 anchor_bottom = 0.5
-margin_left = -466.0
-margin_top = -140.0
-margin_right = 18.0
-margin_bottom = -80.0
+margin_left = -476.0
+margin_top = -210.0
+margin_right = 8.0
+margin_bottom = -150.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -453,17 +537,18 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="Str" type="Label" parent="MC/CC/C/Player" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -122.0
+margin_left = -155.0
 margin_top = 50.0
-margin_right = 54.0
+margin_right = -55.0
 margin_bottom = 98.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -477,7 +562,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect", "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "Rect", "custom_fonts" ]
 
 [node name="Add" type="Button" parent="MC/CC/C/Player/Str" index="0"]
 
@@ -503,17 +588,41 @@ group = null
 text = "+"
 flat = false
 align = 1
-_sections_unfolded = [ "custom_styles" ]
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Amount" type="Label" parent="MC/CC/C/Player/Str" index="1"]
+
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 50.0
+margin_top = -14.0
+margin_right = 210.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 10 )
+text = "999 - +19"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="Agi" type="Label" parent="MC/CC/C/Player" index="1"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -122.0
+margin_left = -155.0
 margin_top = 110.0
-margin_right = 54.0
+margin_right = -55.0
 margin_bottom = 158.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -555,15 +664,39 @@ flat = false
 align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
+[node name="Amount" type="Label" parent="MC/CC/C/Player/Agi" index="1"]
+
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 50.0
+margin_top = -14.0
+margin_right = 210.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 10 )
+text = "999 - +19"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="Int" type="Label" parent="MC/CC/C/Player" index="2"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -122.0
+margin_left = -155.0
 margin_top = 170.0
-margin_right = 54.0
+margin_right = -55.0
 margin_bottom = 218.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -605,15 +738,39 @@ flat = false
 align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
+[node name="Amount" type="Label" parent="MC/CC/C/Player/Int" index="1"]
+
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 50.0
+margin_top = -14.0
+margin_right = 210.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 10 )
+text = "999 - +19"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="Luck" type="Label" parent="MC/CC/C/Player" index="3"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -122.0
+margin_left = -155.0
 margin_top = 230.0
-margin_right = 54.0
+margin_right = -55.0
 margin_bottom = 278.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -655,6 +812,56 @@ flat = false
 align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
+[node name="Amount" type="Label" parent="MC/CC/C/Player/Luck" index="1"]
+
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 50.0
+margin_top = -14.0
+margin_right = 210.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 10 )
+text = "999 - +19"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Reset" type="Button" parent="MC/CC/C/Player" index="4"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -72.0
+margin_top = 280.0
+margin_right = 58.0
+margin_bottom = 334.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Reset"
+flat = false
+align = 1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="StatPoints" type="Label" parent="MC/CC/C" index="3"]
 
 anchor_left = 0.0
@@ -662,16 +869,16 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -466.0
-margin_top = -240.0
+margin_top = -270.0
 margin_right = -6.0
-margin_bottom = -192.0
+margin_bottom = -222.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "STAT POINTS:"
 align = 1
 percent_visible = 1.0
@@ -686,9 +893,9 @@ anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
 margin_left = 64.0
-margin_top = -240.0
+margin_top = -270.0
 margin_right = 454.0
-margin_bottom = -192.0
+margin_bottom = -222.0
 grow_horizontal = 0
 grow_vertical = 0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -697,7 +904,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "GOLD 9999"
 align = 1
 percent_visible = 1.0
@@ -722,7 +929,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -767,7 +974,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 text = "Weapons found"
 align = 1
 percent_visible = 1.0
@@ -791,7 +998,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Result"
 align = 1
 percent_visible = 1.0
@@ -815,7 +1022,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 text = "Companions found"
 percent_visible = 1.0
 lines_skipped = 0
@@ -838,7 +1045,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Result"
 align = 1
 percent_visible = 1.0
@@ -863,7 +1070,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -880,6 +1087,16 @@ _sections_unfolded = [ "custom_fonts" ]
 [connection signal="button_down" from="MC/CC/C/Search/Weapon/WeaponSearch" to="." method="_on_WeaponSearch_button_down"]
 
 [connection signal="button_down" from="MC/CC/C/Search/Companion/CompanionSearch" to="." method="_on_CompanionSearch_button_down"]
+
+[connection signal="button_down" from="MC/CC/C/Player/Str/Add" to="." method="_on_AddSTR_button_down"]
+
+[connection signal="button_down" from="MC/CC/C/Player/Agi/Add" to="." method="_on_AddAGI_button_down"]
+
+[connection signal="button_down" from="MC/CC/C/Player/Int/Add" to="." method="_on_AddINT_button_down"]
+
+[connection signal="button_down" from="MC/CC/C/Player/Luck/Add" to="." method="_on_AddLCK_button_down"]
+
+[connection signal="button_down" from="MC/CC/C/Player/Reset" to="." method="_on_Reset_button_down"]
 
 [connection signal="button_down" from="MC/CC/C/Next" to="." method="_on_Next_button_down"]
 
