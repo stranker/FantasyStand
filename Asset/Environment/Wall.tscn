@@ -7,36 +7,19 @@
 resource_name = "Wall.gd"
 script/source = "extends StaticBody2D
 
-var maxLife
-var life
-var level
-
 func _ready():
-	initialize()
+	add_to_group(\"Wall\")
 	pass
 
 func get_damage(val):
-	life -= val
-	if life <= 0:
+	Global.wall.life -= val
+	if Global.wall.life  <= 0:
 		$CollisionShape2D.disabled = true
-		life = 0
+		Global.wall.life = 0
 	pass
 
 func is_alive():
-	return life > 0
-
-func initialize():
-	add_to_group(\"Wall\")
-	if Global.wallMaxLife:
-		maxLife = Global.wallMaxLife
-		life = Global.wallLife
-		level = Global.wallLevel
-	else:
-		maxLife = 100
-		life = maxLife
-		level = 1
-	Global.wall = self
-	pass"
+	return Global.wall.life > 0"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -46,6 +29,7 @@ extents = Vector2( 5.82482, 10 )
 
 [node name="Wall" type="StaticBody2D"]
 
+position = Vector2( 0, 6.13389 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -54,6 +38,7 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 script = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
