@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Asset/Font/yoster.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Asset/Font/StrankerFont.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="GDScript" id=1]
 
@@ -32,7 +32,7 @@ _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=3]
 
-size = 80
+size = 50
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 2 )
@@ -40,7 +40,7 @@ _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=4]
 
-size = 60
+size = 40
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 2 )

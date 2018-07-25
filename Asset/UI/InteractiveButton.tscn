@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Asset/Font/FontleroyBrown.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Asset/Font/StrankerFont.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Asset/Sprites/UI/Gold.png" type="Texture" id=2]
-[ext_resource path="res://Asset/Font/yoster.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="GDScript" id=1]
 
@@ -19,7 +18,7 @@ _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="DynamicFont" id=2]
 
-size = 30
+size = 26
 use_mipmaps = false
 use_filter = true
 font_data = ExtResource( 1 )
@@ -27,11 +26,11 @@ _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=3]
 
-size = 20
+size = 22
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 3 )
-_sections_unfolded = [ "Font", "Settings" ]
+font_data = ExtResource( 1 )
+_sections_unfolded = [ "Font" ]
 
 [node name="InteractiveButton" type="Button"]
 
@@ -125,7 +124,7 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -13.0
+margin_top = -10.0
 margin_right = 40.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 40, 14 )
