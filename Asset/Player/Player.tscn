@@ -11,20 +11,13 @@ script/source = "extends KinematicBody2D
 var velocity = Vector2()
 var currentWeapon = null
 var weaponList = []
-var bow = preload(\"res://Asset/Weapons/Range/Bow.tscn\")
-var sword = preload(\"res://Asset/Weapons/Melee/Sword.tscn\")
+var bow = preload(\"res://Asset/Items/Range/Bow.tscn\")
+var sword = preload(\"res://Asset/Items/Melee/Sword.tscn\")
 var alive = true
 
 func _ready():
 	set_physics_process(true)
-	var b = bow.instance()
-	var s = sword.instance()
-	weaponList.append(b)
-	weaponList.append(s)
-	$WPos.add_child(b)
-	$WPos.add_child(s)
-	s.hide()
-	currentWeapon = $WPos.get_child(0)
+	create_weapons()
 	if OS.get_name() == \"Windows\":
 		$CanvasLayer/ControlAnalogico.hide()
 	update_stats_weapons()
@@ -84,7 +77,17 @@ func _on_DamageArea_body_entered(body):
 		alive = false
 		Global.game_over()
 	pass # replace with function body
-"
+
+func create_weapons():
+	var b = bow.instance()
+	var s = sword.instance()
+	weaponList.append(b)
+	weaponList.append(s)
+	$WPos.add_child(b)
+	$WPos.add_child(s)
+	s.hide()
+	currentWeapon = $WPos.get_child(0)
+	pass"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -116,7 +119,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 radius = 30.5219
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1

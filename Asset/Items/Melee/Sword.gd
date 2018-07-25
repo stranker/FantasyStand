@@ -1,8 +1,7 @@
-extends "res://Asset/Weapons/Weapon.gd"
-
+extends "res://Asset/Items/Weapon.gd"
 
 func _ready():
-	create_weapon("test",1,2,1,NORMAL)
+	create_weapon("Sword","res://icon.png", 1,2,1,NORMAL)
 	pass
 
 func attack():

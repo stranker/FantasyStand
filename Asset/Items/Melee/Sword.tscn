@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Asset/Weapons/Melee/Sword.gd" type="Script" id=1]
+[ext_resource path="res://Asset/Items/Melee/Sword.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -41,7 +41,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Sword" type="Area2D" index="0"]
+[node name="Sword" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )

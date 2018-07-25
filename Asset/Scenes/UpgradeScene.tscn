@@ -22,8 +22,8 @@ var costRepair
 var costUpgrade
 var costWeaponSearch
 var costCompanionSearch
-var gameScene = \"res://Asset/Scenes/TestScene.tscn\"
 var points
+var stashScene = \"res://Asset/Scenes/StashScene.tscn\"
 
 var pStr = 0
 var pAgi = 0
@@ -95,9 +95,9 @@ func _on_Next_button_down():
 	pass # replace with function body
 
 func _on_NextResultPanel_button_down():
-	Global.next_level()
 	Global.player.add_stats(pStr,pAgi,pInt,pLuck)
 	Global.pointToSpend = points
+	get_tree().change_scene(stashScene)
 	pass # replace with function body
 
 func _on_Reset_button_down():
@@ -195,7 +195,7 @@ use_filter = true
 font_data = ExtResource( 5 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=6]
 
 size = 50
 use_mipmaps = false
@@ -203,7 +203,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=7]
 
 size = 40
 use_mipmaps = false
@@ -211,7 +211,7 @@ use_filter = true
 font_data = ExtResource( 1 )
 _sections_unfolded = [ "Font", "Resource", "Settings" ]
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=8]
 
 size = 30
 use_mipmaps = false
@@ -869,7 +869,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 6 )
 text = "STAT POINTS:"
 align = 1
 percent_visible = 1.0
@@ -895,7 +895,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 6 )
 text = "GOLD 9999"
 align = 1
 percent_visible = 1.0
@@ -964,7 +964,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 7 )
 text = "Weapons found"
 align = 1
 percent_visible = 1.0
@@ -988,7 +988,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 8 )
 text = "Result"
 align = 1
 percent_visible = 1.0
@@ -1012,7 +1012,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 7 )
 text = "Companions found"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1035,7 +1035,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 8 )
 text = "Result"
 align = 1
 percent_visible = 1.0

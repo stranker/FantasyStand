@@ -7,6 +7,7 @@ var pointToSpend
 var cantCompanion
 var wall = null
 var player = null
+var items = null
 
 var gameOverScene = "res://Asset/Scenes/GameOverScene.tscn"
 var gameScene = "res://Asset/Scenes/TestScene.tscn"
@@ -55,6 +56,40 @@ class Player:
 		intelligence += intel
 		luck += lck
 
+class Items:
+	var weaponList = []
+	var armorList = []
+	var itemList = []
+	
+	func add_weapon(weapon):
+		add_item(weapon,weaponList)
+		
+	func remove_weapon(weapon):
+		remove_item(weapon,weaponList)
+		
+	func add_armor(armor):
+		add_item(armor,armorList)
+		
+	func remove_armor(armor):
+		remove_item(armor,armorList)
+		
+	func add_item(item,list):
+		if !list.has(item):
+			list.append(item)
+		
+	func remove_item(item,list):
+		list.erase(item)
+	
+	func clear_list(list):
+		for i in list:
+			list.erase(i)
+			i.queue_free()
+	
+	func initialize():
+		clear_list(weaponList)
+		clear_list(armorList)
+		clear_list(itemList)
+
 func _ready():
 	initialize()
 	pass
@@ -62,6 +97,7 @@ func _ready():
 func new_game():
 	wall.initialize()
 	player.initialize()
+	items.initialize()
 	gold = 9999
 	pointToSpend = 0
 	enemiesKilled = 0
@@ -71,6 +107,7 @@ func new_game():
 func initialize():
 	wall = Wall.new()
 	player = Player.new()
+	items = Items.new()
 	gold = 9999
 	pointToSpend = 0
 	enemiesKilled = 0
