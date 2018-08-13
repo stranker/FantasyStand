@@ -11,7 +11,7 @@ var attackSpeed
 var critic
 var rarity
 
-func create_weapon(wName, wTexture, wDamage, wASpeed, wCritic, wRarity, wSubtype):
+func create_weapon(wName, wTexture, wDamage, wASpeed, wCritic, wRarity):
 	set_item_name(wName)
 	set_item_texture(wTexture)
 	set_item_type("Weapon")
@@ -19,7 +19,6 @@ func create_weapon(wName, wTexture, wDamage, wASpeed, wCritic, wRarity, wSubtype
 	attackSpeed = wASpeed
 	critic = wCritic
 	rarity = wRarity
-	subtype = wSubtype
 	create_reference()
 
 func get_item_ap():
@@ -30,6 +29,9 @@ func get_item_as():
 
 func get_weapon_subtype():
 	return subtype
+
+func set_weapon_subtype(subt):
+	subtype = subt
 
 func attack():
 	pass
