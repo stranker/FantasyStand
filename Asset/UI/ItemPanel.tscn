@@ -10,8 +10,6 @@ script/source = "extends Panel
 var item
 
 func _ready():
-	$WeaponSet.hide()
-	$ArmorSet.hide()
 	pass
 
 func set_item_info(i):
@@ -25,8 +23,8 @@ func set_item_options(itemType):
 	match itemType:
 		\"Weapon\":
 			$WeaponSet.show()
-			$WeaponSet/Atk.text = \"Atk Power: \" + str(item.get_item_ap())
-			$WeaponSet/AtkSpd.text = \"Atk Speed: \" + str(item.get_item_as())
+			$WeaponSet/Atk.text = \"Atk Power: \" + str(item.get_item_ap()) + \"s\"
+			$WeaponSet/AtkSpd.text = \"Atk Speed: \" + str(item.get_item_as()) + \"s\"
 		\"Armor\":
 			$ArmorSet.show()
 			$ArmorSet/Str.text = \"STR +\" + str(item.get_str())
@@ -34,7 +32,9 @@ func set_item_options(itemType):
 			$ArmorSet/Luck.text = \"LUCK +\" + str(item.get_luck())
 			$ArmorSet/Agi.text = \"AGI +\" + str(item.get_agi())
 	pass
-"
+
+func get_item():
+	return item"
 _sections_unfolded = [ "Resource" ]
 
 [node name="ItemPanel" type="Panel"]
@@ -61,7 +61,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_bottom = 14.0
+margin_top = 7.0
+margin_bottom = 21.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -142,7 +143,6 @@ align = 1
 
 [node name="WeaponSet" type="Control" parent="." index="4"]
 
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.5

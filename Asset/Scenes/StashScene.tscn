@@ -14,20 +14,26 @@ var itemPanel = preload(\"res://Asset/UI/ItemPanel.tscn\")
 var gameScene = \"res://Asset/Scenes/TestScene.tscn\"
 
 func _ready():
-	clear_panels()
-	add_panels(Global.items.weaponList)
+	_on_Weapons_button_down()
 	pass
 
 func _on_Weapons_button_down():
 	clear_panels()
 	add_panels(Global.items.weaponList)
+	$MC/C/Range.show()
+	$MC/C/Melee.show()
+	_on_Melee_button_down()
 	pass # replace with function body
 
 func _on_Armor_button_down():
+	$MC/C/Range.hide()
+	$MC/C/Melee.hide()
 	clear_panels()
 	pass # replace with function body
 
 func _on_Items_button_down():
+	$MC/C/Range.hide()
+	$MC/C/Melee.hide()
 	clear_panels()
 	pass # replace with function body
 
@@ -44,7 +50,25 @@ func add_panels(itemList):
 func _on_Next_button_down():
 	Global.next_level()
 	get_tree().change_scene(gameScene)
-	pass"
+	pass
+
+func _on_Melee_button_down():
+	for i in $MC/C/ItemGrid.get_children():
+		if i.get_item().get_weapon_subtype() == \"Melee\":
+			i.show()
+		else:
+			i.hide()
+	pass # replace with function body
+
+
+func _on_Range_button_down():
+	for i in $MC/C/ItemGrid.get_children():
+		if i.get_item().get_weapon_subtype() == \"Range\":
+			i.show()
+		else:
+			i.hide()
+	pass # replace with function body
+"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="DynamicFont" id=2]
@@ -109,10 +133,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -466.0
-margin_top = -320.0
+margin_left = -366.0
+margin_top = -360.0
 margin_right = 451.0
-margin_bottom = -92.0
+margin_bottom = -100.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -131,9 +155,9 @@ anchor_top = 0.5
 anchor_right = 0.0
 anchor_bottom = 0.5
 margin_left = 112.0
-margin_top = -210.0
+margin_top = -230.0
 margin_right = 242.0
-margin_bottom = -80.0
+margin_bottom = -100.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -181,9 +205,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -66.0
-margin_top = -210.0
+margin_top = -230.0
 margin_right = 64.0
-margin_bottom = -80.0
+margin_bottom = -100.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -232,9 +256,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = -234.0
-margin_top = -210.0
+margin_top = -230.0
 margin_right = -104.0
-margin_bottom = -80.0
+margin_bottom = -100.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -275,15 +299,116 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Next" type="TextureButton" parent="MC/C" index="4"]
+[node name="Melee" type="TextureButton" parent="MC/C" index="4"]
+
+editor/display_folded = true
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -964.0
+margin_top = -50.0
+margin_right = -874.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+_sections_unfolded = [ "Textures" ]
+
+[node name="Label" type="Label" parent="MC/C/Melee" index="0"]
 
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.0
 anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -68.0
+margin_top = -38.0
+margin_right = 66.0
+margin_bottom = -8.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 2 )
+text = "Melee"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Range" type="TextureButton" parent="MC/C" index="5"]
+
+editor/display_folded = true
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -964.0
+margin_top = 90.0
+margin_right = -874.0
+margin_bottom = 190.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+_sections_unfolded = [ "Textures" ]
+
+[node name="Label" type="Label" parent="MC/C/Range" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -68.0
+margin_top = -38.0
+margin_right = 66.0
+margin_bottom = -8.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 2 )
+text = "Range"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Next" type="TextureButton" parent="MC/C" index="6"]
+
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -46.0
+margin_left = -67.0
 margin_top = -80.0
-margin_right = 36.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -306,6 +431,10 @@ _sections_unfolded = [ "Textures" ]
 [connection signal="button_down" from="MC/C/Armor" to="." method="_on_Armor_button_down"]
 
 [connection signal="button_down" from="MC/C/Items" to="." method="_on_Items_button_down"]
+
+[connection signal="button_down" from="MC/C/Melee" to="." method="_on_Melee_button_down"]
+
+[connection signal="button_down" from="MC/C/Range" to="." method="_on_Range_button_down"]
 
 [connection signal="button_down" from="MC/C/Next" to="." method="_on_Next_button_down"]
 

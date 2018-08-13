@@ -12,6 +12,8 @@ resource_name = "TestScene.gd"
 script/source = "extends Node
 
 func _ready():
+	if Global.level == 1:
+		$Player.create_weapons()
 	pass
 
 func _on_KillEnemies_button_down():

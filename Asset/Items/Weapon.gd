@@ -5,12 +5,13 @@ enum RARITY {NORMAL, MEDIUM, RARE, EPIC, LEGENDARY}
 var attacking = false
 var weaponRef = null
 var weaponScene = preload("res://Asset/Items/Weapon.tscn")
+var subtype = ""
 var damage
 var attackSpeed
 var critic
 var rarity
 
-func create_weapon(wName, wTexture, wDamage, wASpeed, wCritic, wRarity):
+func create_weapon(wName, wTexture, wDamage, wASpeed, wCritic, wRarity, wSubtype):
 	set_item_name(wName)
 	set_item_texture(wTexture)
 	set_item_type("Weapon")
@@ -18,6 +19,7 @@ func create_weapon(wName, wTexture, wDamage, wASpeed, wCritic, wRarity):
 	attackSpeed = wASpeed
 	critic = wCritic
 	rarity = wRarity
+	subtype = wSubtype
 	create_reference()
 
 func get_item_ap():
@@ -25,6 +27,9 @@ func get_item_ap():
 
 func get_item_as():
 	return attackSpeed
+
+func get_weapon_subtype():
+	return subtype
 
 func attack():
 	pass
@@ -44,5 +49,6 @@ func create_reference():
 	weaponRef.attackSpeed = attackSpeed
 	weaponRef.critic = critic
 	weaponRef.rarity = rarity
+	weaponRef.subtype = subtype
 	Global.items.add_weapon(weaponRef)
 	pass

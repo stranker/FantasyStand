@@ -10,7 +10,7 @@ script/source = "extends \"res://Asset/Items/Weapon.gd\"
 var arrow = preload(\"res://Asset/Items/Range/Arrow.tscn\")
 
 func _ready():
-	create_weapon(\"Bow\",\"res://icon.png\",2,1.2,1,NORMAL)
+	create_weapon(\"Bow\",\"res://icon.png\",2,1.2,1,NORMAL,\"Range\")
 	pass
 
 func attack():
