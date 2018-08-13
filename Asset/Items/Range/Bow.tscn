@@ -73,7 +73,7 @@ tracks/2/keys = {
 } ]
 }
 
-[node name="Bow" type="Sprite" index="0"]
+[node name="Bow" type="Sprite"]
 
 position = Vector2( 14.6873, 0 )
 scale = Vector2( 0.453073, 1 )
