@@ -22,7 +22,9 @@ func load_weapons():
 	weaponsData.open("res://Asset/Data/WeaponData.txt",File.READ)
 	if weaponsData.is_open():
 		var data = weaponsData.get_line()
-		WeaponDic = parse_json(data)
+		if data.length() > 1:
+			WeaponDic = parse_json(data)
+			
 	weaponsData.close()
 	return loaded
 
@@ -32,10 +34,22 @@ func create_weapons():
 		var s = sword.instance()
 		s.create_random_sword()
 		WeaponList.push_back(s)
-	#weaponsData.open("res://Asset/Data/WeaponData.txt",File.WRITE)
-	#if weaponsData.is_open():
-	#weaponsData.close()
-	print(WeaponList)
+	if !WeaponList.empty():
+		weaponsData.open("res://Asset/Data/WeaponData.txt",File.WRITE)
+		if weaponsData.is_open():
+			for i in range(WeaponList.size()):
+				#wName, wTexture, wDamage, wASpeed, wCritic, wRarity
+				var wName = WeaponList[i].get_item_name()
+				var wText = WeaponList[i].get_item_texture()
+				var wDmg = WeaponList[i].get_item_ap()
+				var wAS = WeaponList[i].get_item_as()
+				var wCtr= WeaponList[i].get_item_critic()
+				var wRar = WeaponList[i].get_item_rarity()
+				var wOwned = WeaponList[i].get_owned()
+				var wEquiped = WeaponList[i].get_equiped()
+				WeaponDic[i] = [wName,wText,wDmg,wAS,wCtr,wRar,wOwned,wEquiped]
+			weaponsData.store_line(to_json(WeaponDic))
+		weaponsData.close()
 	pass
 
 func create_armor():
