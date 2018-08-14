@@ -3,6 +3,7 @@ extends Node
 var itemName
 var itemTexture
 var itemType
+var owned
 
 func set_item_name(val):
 	itemName = val
@@ -21,3 +22,9 @@ func get_item_texture():
 
 func get_item_type():
 	return itemType
+
+func get_owned():
+	return owned
+
+func set_owned(val):
+	owned = val

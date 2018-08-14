@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://Asset/Script/Singletons/Global.gd"
+InventoryManager="*res://Asset/Script/Singletons/InventoryManager.gd"
 
 [display]
 

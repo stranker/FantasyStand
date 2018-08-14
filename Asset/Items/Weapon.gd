@@ -19,7 +19,6 @@ func create_weapon(wName, wTexture, wDamage, wASpeed, wCritic, wRarity):
 	attackSpeed = wASpeed
 	critic = wCritic
 	rarity = wRarity
-	create_reference()
 
 func get_item_ap():
 	return damage
@@ -40,17 +39,4 @@ func set_attacking(val):
 	attacking = val
 
 func update_stats(strength, agility, luck):
-	pass
-
-func create_reference():
-	weaponRef = weaponScene.instance()
-	weaponRef.set_item_name(get_item_name())
-	weaponRef.set_item_texture(get_item_texture())
-	weaponRef.set_item_type(get_item_type())
-	weaponRef.damage = damage
-	weaponRef.attackSpeed = attackSpeed
-	weaponRef.critic = critic
-	weaponRef.rarity = rarity
-	weaponRef.subtype = subtype
-	Global.items.add_weapon(weaponRef)
 	pass
