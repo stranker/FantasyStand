@@ -17,9 +17,11 @@ var sword = preload(\"res://Asset/Items/Melee/Sword.tscn\")
 var alive = true
 
 func _ready():
+	Global.player.playerRef = self
 	set_physics_process(true)
 	if OS.get_name() == \"Windows\":
 		$CanvasLayer/ControlAnalogico.hide()
+	set_weapons()
 	update_stats_weapons()
 	pass
 
@@ -78,15 +80,21 @@ func _on_DamageArea_body_entered(body):
 		Global.game_over()
 	pass # replace with function body
 
-func create_weapons():
-	var b = bow.instance()
-	var s = sword.instance()
-	weaponList.append(b)
-	weaponList.append(s)
-	$WPos.add_child(b)
-	$WPos.add_child(s)
-	s.hide()
-	currentWeapon = $WPos.get_child(0)
+func retreive_weapons():
+	for i in $WPos.get_children():
+		InventoryManager.WeaponList.push_front(i)
+		i.global_position = Vector2(-1000,-1000) # UN ASCO
+		$WPos.call_deferred(\"remove_child\",i)
+	weaponList.clear()
+	InventoryManager.set_initial_weapons()
+	pass
+
+func set_weapons():
+	weaponList = InventoryManager.WeaponEquiped
+	for i in weaponList:
+		$WPos.add_child(i)
+	weaponList[1].hide()
+	currentWeapon = weaponList[0]
 	pass"
 _sections_unfolded = [ "Resource" ]
 
@@ -119,7 +127,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 radius = 30.5219
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1

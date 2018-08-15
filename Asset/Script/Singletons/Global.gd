@@ -41,6 +41,7 @@ class Player:
 	var intelligence = 1
 	var luck = 1
 	var speed = 100
+	var playerRef = null
 	
 	func initialize():
 		speed = 100
@@ -79,6 +80,7 @@ func initialize():
 
 func end_level():
 	pointToSpend += 1
+	player.playerRef.retreive_weapons()
 	get_tree().change_scene(upgradeScene)
 	pass
 

@@ -1,7 +1,6 @@
 extends "res://Asset/Items/Melee/Melee.gd"
 
 func _ready():
-	#create_weapon("Sword","res://icon.png", 1, 2, 1, NORMAL)
 	pass
 
 func attack():
@@ -20,12 +19,15 @@ func update_stats(strength, agility, luck):
 	pass
 
 func create_random_sword():
-	#wName, wTexture, wDamage, wASpeed, wCritic, wRarity
+	#wName,wText,wSub,wDmg,wASpeed,wCritic,wRarity,wOwned,wEquiped
 	var wName = "Random Weapon"
 	var wText = "res://icon.png"
 	var wDmg = rand_range(1,10)
 	var wASpeed = rand_range(1.0,10.0)
 	var wCritic = rand_range(1,10)
 	var wRarity = 0
-	create_weapon(wName,wText,wDmg,wASpeed,wCritic,wRarity)
+	var wOwned = false
+	var wEquiped = false
+	var wSub = "Melee"
+	create_weapon(wName,wText,wSub,wDmg,wASpeed,wCritic,wRarity,wOwned,wEquiped)
 	pass

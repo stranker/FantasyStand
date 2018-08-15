@@ -25,7 +25,7 @@ _sections_unfolded = [ "Resource" ]
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 5.82482, 10 )
+extents = Vector2( 3.77627, 10 )
 
 [node name="Wall" type="StaticBody2D"]
 
@@ -42,7 +42,8 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
-scale = Vector2( 0.706565, 10.0803 )
+position = Vector2( -1.93909, 0 )
+scale = Vector2( 0.484764, 10.0803 )
 texture = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 

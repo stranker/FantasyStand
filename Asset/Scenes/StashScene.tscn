@@ -14,38 +14,42 @@ var itemPanel = preload(\"res://Asset/UI/ItemPanel.tscn\")
 var gameScene = \"res://Asset/Scenes/TestScene.tscn\"
 
 func _ready():
-	_on_Weapons_button_down()
+	add_weapon_panels()
 	pass
 
 func _on_Weapons_button_down():
-	clear_panels()
-	add_panels(Global.items.weaponList)
+	$MC/C/WGrid.show()
 	$MC/C/Range.show()
 	$MC/C/Melee.show()
-	_on_Melee_button_down()
 	pass # replace with function body
+
+func add_weapon_panels():
+	for i in InventoryManager.WeaponList:
+		var ip = itemPanel.instance()
+		ip.set_item_info(i)
+		$MC/C/WGrid.add_child(ip)
+	$MC/C/Range.show()
+	$MC/C/Melee.show()
+	show_owned($MC/C/WGrid.get_children())
+	pass
 
 func _on_Armor_button_down():
 	$MC/C/Range.hide()
 	$MC/C/Melee.hide()
-	clear_panels()
+	$MC/C/WGrid.hide()
 	pass # replace with function body
 
 func _on_Items_button_down():
 	$MC/C/Range.hide()
 	$MC/C/Melee.hide()
-	clear_panels()
 	pass # replace with function body
-
-func clear_panels():
-	for i in $MC/C/ItemGrid.get_children():
-		i.queue_free()
 
 func add_panels(itemList):
 	for i in itemList:
 		var ip = itemPanel.instance()
-		$MC/C/ItemGrid.call_deferred(\"add_child\",ip)
+		$MC/C/ItemGrid/Weapon.add_child(ip)
 		ip.set_item_info(i)
+	pass
 
 func _on_Next_button_down():
 	Global.next_level()
@@ -53,20 +57,18 @@ func _on_Next_button_down():
 	pass
 
 func _on_Melee_button_down():
-	for i in $MC/C/ItemGrid.get_children():
-		if i.get_item().get_weapon_subtype() == \"Melee\":
-			i.show()
-		else:
-			i.hide()
+	show_owned($MC/C/WGrid.get_children())
 	pass # replace with function body
 
-
-func _on_Range_button_down():
-	for i in $MC/C/ItemGrid.get_children():
-		if i.get_item().get_weapon_subtype() == \"Range\":
+func show_owned(list):
+	for i in list:
+		if i.get_item().get_weapon_subtype() == \"Melee\" and i.get_item().get_owned():
 			i.show()
 		else:
 			i.hide()
+	pass
+
+func _on_Range_button_down():
 	pass # replace with function body
 "
 _sections_unfolded = [ "Resource" ]
@@ -127,7 +129,34 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="ItemGrid" type="GridContainer" parent="MC/C" index="0"]
+[node name="ItemList" type="ItemList" parent="MC/C" index="0"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 152.0
+margin_top = 200.0
+margin_right = 992.0
+margin_bottom = 480.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+items = [  ]
+select_mode = 0
+allow_reselect = false
+max_columns = 10
+same_column_width = true
+fixed_column_width = 50
+icon_mode = 1
+fixed_icon_size = Vector2( 0, 0 )
+
+[node name="WGrid" type="GridContainer" parent="MC/C" index="1"]
 
 anchor_left = 0.5
 anchor_top = 1.0
@@ -147,7 +176,49 @@ custom_constants/hseparation = 20
 columns = 256
 _sections_unfolded = [ "custom_constants" ]
 
-[node name="Weapons" type="TextureButton" parent="MC/C" index="1"]
+[node name="AGrid" type="GridContainer" parent="MC/C" index="2"]
+
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -366.0
+margin_top = -360.0
+margin_right = 451.0
+margin_bottom = -100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_constants/hseparation = 20
+columns = 256
+_sections_unfolded = [ "custom_constants" ]
+
+[node name="IGrid" type="GridContainer" parent="MC/C" index="3"]
+
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -366.0
+margin_top = -360.0
+margin_right = 451.0
+margin_bottom = -100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_constants/hseparation = 20
+columns = 256
+_sections_unfolded = [ "custom_constants" ]
+
+[node name="Weapons" type="TextureButton" parent="MC/C" index="4"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -197,7 +268,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Armor" type="TextureButton" parent="MC/C" index="2"]
+[node name="Armor" type="TextureButton" parent="MC/C" index="5"]
 
 anchor_left = 0.5
 anchor_top = 0.5
@@ -247,7 +318,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Items" type="TextureButton" parent="MC/C" index="3"]
+[node name="Items" type="TextureButton" parent="MC/C" index="6"]
 
 editor/display_folded = true
 anchor_left = 1.0
@@ -298,7 +369,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Melee" type="TextureButton" parent="MC/C" index="4"]
+[node name="Melee" type="TextureButton" parent="MC/C" index="7"]
 
 editor/display_folded = true
 anchor_left = 1.0
@@ -349,7 +420,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Range" type="TextureButton" parent="MC/C" index="5"]
+[node name="Range" type="TextureButton" parent="MC/C" index="8"]
 
 editor/display_folded = true
 anchor_left = 1.0
@@ -400,7 +471,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Next" type="TextureButton" parent="MC/C" index="6"]
+[node name="Next" type="TextureButton" parent="MC/C" index="9"]
 
 anchor_left = 1.0
 anchor_top = 1.0
