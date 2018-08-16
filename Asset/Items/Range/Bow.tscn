@@ -10,7 +10,6 @@ script/source = "extends \"res://Asset/Items/Range/Range.gd\"
 var arrow = preload(\"res://Asset/Items/Range/Arrow.tscn\")
 
 func _ready():
-	create_weapon(\"Bow\",\"res://icon.png\",2,1.2,1,NORMAL)
 	pass
 
 func attack():
@@ -25,6 +24,19 @@ func create_arrow():
 	get_tree().root.call_deferred(\"add_child\",a)
 	a.damage = damage
 	a.global_position = $SPos.global_position
+	pass
+
+func create_initial_bow():
+	var wName = \"Training bow\"
+	var wText = \"res://icon.png\"
+	var wDmg = 2
+	var wASpeed = 1
+	var wCritic = 1
+	var wRarity = RARITY.NORMAL
+	var wOwned = true
+	var wEquiped = true
+	var wSub = \"Range\"
+	create_weapon(wName,wText,wSub,wDmg,wASpeed,wCritic,wRarity,wOwned,wEquiped)
 	pass"
 _sections_unfolded = [ "Resource" ]
 

@@ -82,19 +82,18 @@ func _on_DamageArea_body_entered(body):
 
 func retreive_weapons():
 	for i in $WPos.get_children():
-		InventoryManager.WeaponList.push_front(i)
 		i.global_position = Vector2(-1000,-1000) # UN ASCO
 		$WPos.call_deferred(\"remove_child\",i)
+		InventoryManager.WeaponList.push_back(i)
 	weaponList.clear()
-	InventoryManager.set_initial_weapons()
 	pass
 
 func set_weapons():
 	weaponList = InventoryManager.WeaponEquiped
 	for i in weaponList:
 		$WPos.add_child(i)
-	weaponList[1].hide()
-	currentWeapon = weaponList[0]
+	#weaponList[1].hide()
+	#currentWeapon = weaponList[0]
 	pass"
 _sections_unfolded = [ "Resource" ]
 
@@ -127,7 +126,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 radius = 30.5219
 
-[node name="Player" type="KinematicBody2D" index="0"]
+[node name="Player" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1

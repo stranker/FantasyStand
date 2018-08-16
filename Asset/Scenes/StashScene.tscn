@@ -17,6 +17,11 @@ func _ready():
 	add_weapon_panels()
 	pass
 
+func _process(delta):
+	$Test.text = str(InventoryManager.WeaponList)
+	$Test2.text = str(InventoryManager.WeaponEquiped)
+	pass
+
 func _on_Weapons_button_down():
 	$MC/C/WGrid.show()
 	$MC/C/Range.show()
@@ -30,7 +35,7 @@ func add_weapon_panels():
 		$MC/C/WGrid.add_child(ip)
 	$MC/C/Range.show()
 	$MC/C/Melee.show()
-	show_owned($MC/C/WGrid.get_children())
+	show_owned($MC/C/WGrid.get_children(),\"Melee\")
 	pass
 
 func _on_Armor_button_down():
@@ -57,18 +62,19 @@ func _on_Next_button_down():
 	pass
 
 func _on_Melee_button_down():
-	show_owned($MC/C/WGrid.get_children())
+	show_owned($MC/C/WGrid.get_children(),\"Melee\")
 	pass # replace with function body
 
-func show_owned(list):
+func show_owned(list,filter):
 	for i in list:
-		if i.get_item().get_weapon_subtype() == \"Melee\" and i.get_item().get_owned():
+		if i.get_item().get_weapon_subtype() == filter and i.get_item().get_owned():
 			i.show()
 		else:
 			i.hide()
 	pass
 
 func _on_Range_button_down():
+	show_owned($MC/C/WGrid.get_children(),\"Range\")
 	pass # replace with function body
 "
 _sections_unfolded = [ "Resource" ]
@@ -81,7 +87,7 @@ use_filter = true
 font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="StashScene" type="Control"]
+[node name="StashScene" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -495,6 +501,41 @@ texture_pressed = ExtResource( 4 )
 expand = true
 stretch_mode = 5
 _sections_unfolded = [ "Textures" ]
+
+[node name="Test" type="Label" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Test2" type="Label" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_top = 20.0
+margin_bottom = 34.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="button_down" from="MC/C/Weapons" to="." method="_on_Weapons_button_down"]
 

@@ -31,3 +31,16 @@ func create_random_sword():
 	var wSub = "Melee"
 	create_weapon(wName,wText,wSub,wDmg,wASpeed,wCritic,wRarity,wOwned,wEquiped)
 	pass
+
+func create_initial_sword():
+	var wName = "Training sword"
+	var wText = "res://icon.png"
+	var wDmg = 1
+	var wASpeed = 1
+	var wCritic = 1
+	var wRarity = RARITY.NORMAL
+	var wOwned = true
+	var wEquiped = true
+	var wSub = "Melee"
+	create_weapon(wName,wText,wSub,wDmg,wASpeed,wCritic,wRarity,wOwned,wEquiped)
+	pass

@@ -86,6 +86,7 @@ func end_level():
 
 func next_level():
 	level += 1
+	InventoryManager.set_equiped_weapons()
 	get_tree().change_scene(gameScene)
 	pass
 
