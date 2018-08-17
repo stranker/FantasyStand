@@ -33,6 +33,10 @@ func set_item_options(itemType):
 			$ArmorSet/Agi.text = \"AGI +\" + str(item.get_agi())
 	pass
 
+func clear_info():
+	item = null
+	pass
+
 func get_item():
 	return item"
 _sections_unfolded = [ "Resource" ]

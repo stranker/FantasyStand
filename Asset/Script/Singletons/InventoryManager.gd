@@ -52,6 +52,8 @@ func create_initial_weapons():
 	var b = bow.instance()
 	s.create_initial_sword()
 	b.create_initial_bow()
+	WeaponList.push_back(s)
+	WeaponList.push_back(b)
 	WeaponEquiped.push_back(s)
 	WeaponEquiped.push_back(b)
 	pass

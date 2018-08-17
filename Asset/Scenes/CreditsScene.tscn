@@ -12,7 +12,7 @@ script/source = "extends Control
 var menu = \"res://Asset/Scenes/MainMenu.tscn\"
 
 func _on_Back_button_down():
-	get_tree().change_scene(menu)
+	Global.goto_scene(menu)
 	pass # replace with function body
 "
 _sections_unfolded = [ "Resource" ]
@@ -59,7 +59,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 0.992188, 1, 0, 1 ), Color( 0.333969, 0.994141, 0, 1 ), Color( 0, 0.66276, 0.631693, 1 ), Color( 0.498561, 0.315847, 0.5, 1 ), Color( 1, 0, 0, 1 ) ]
 }
 
-[node name="CreditsScene" type="Control" index="0"]
+[node name="CreditsScene" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0

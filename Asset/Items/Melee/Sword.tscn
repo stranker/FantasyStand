@@ -41,7 +41,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Sword" type="Area2D"]
+[node name="Sword" type="Area2D" index="0"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -75,6 +75,6 @@ playback_speed = 1.0
 anims/Attack = SubResource( 2 )
 blend_times = [  ]
 
-[connection signal="body_entered" from="." to="." method="_on_Sword_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_Sword_area_entered"]
 
 

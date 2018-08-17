@@ -11,18 +11,11 @@ script/source = "extends Control
 var gameScene = \"res://Asset/Scenes/TestScene.tscn\"
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
-
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
 
 
 func _on_Next_button_down():
-	get_tree().change_scene(gameScene)
+	Global.goto_scene(gameScene)
 	pass # replace with function body
 "
 _sections_unfolded = [ "Resource" ]

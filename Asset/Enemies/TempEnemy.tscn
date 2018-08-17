@@ -129,7 +129,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 9.87338, -0.214638 ), Vector2( 0, 0 ) ]
 }
 
-[node name="TempEnemy" type="KinematicBody2D" index="0"]
+[node name="TempEnemy" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1

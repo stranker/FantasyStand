@@ -8,6 +8,8 @@ var cantCompanion
 var wall = null
 var player = null
 
+var current_scene = null
+
 var gameOverScene = "res://Asset/Scenes/GameOverScene.tscn"
 var gameScene = "res://Asset/Scenes/TestScene.tscn"
 var upgradeScene = "res://Asset/Scenes/UpgradeScene.tscn"
@@ -76,21 +78,36 @@ func initialize():
 	pointToSpend = 0
 	enemiesKilled = 0
 	level = 1
+	var root = get_tree().root
+	current_scene = root.get_child( root.get_child_count() -1 )
 	pass
+
+
+func goto_scene(path):
+	call_deferred("_deferred_goto_scene",path)
+	pass
+
+func _deferred_goto_scene(path):
+	current_scene.free()
+	var s = ResourceLoader.load(path)
+	current_scene = s.instance()
+	get_tree().root.add_child(current_scene)
+	get_tree().set_current_scene( current_scene )
 
 func end_level():
 	pointToSpend += 1
 	player.playerRef.retreive_weapons()
-	get_tree().change_scene(upgradeScene)
+	goto_scene(upgradeScene)
 	pass
 
 func next_level():
 	level += 1
 	InventoryManager.set_equiped_weapons()
-	get_tree().change_scene(gameScene)
+	goto_scene(gameScene)
 	pass
 
 func game_over():
+	goto_scene(gameOverScene)
 	get_tree().change_scene(gameOverScene)
 	new_game()
 	pass

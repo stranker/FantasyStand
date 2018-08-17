@@ -37,6 +37,11 @@ func _ready():
 	$ResultPanel.hide()
 	pass
 
+func _process(delta):
+	$Label.text = str(InventoryManager.WeaponList)
+	$Label.text = str(InventoryManager.WeaponEquiped)
+	pass
+
 func update_cost():
 	repairPoints = Global.wall.maxLife/10
 	nextWallLevel = Global.wall.level + 1
@@ -97,7 +102,7 @@ func _on_Next_button_down():
 func _on_NextResultPanel_button_down():
 	Global.player.add_stats(pStr,pAgi,pInt,pLuck)
 	Global.pointToSpend = points
-	get_tree().change_scene(stashScene)
+	Global.goto_scene(stashScene)
 	pass # replace with function body
 
 func _on_Reset_button_down():
@@ -235,6 +240,7 @@ script = SubResource( 1 )
 
 [node name="MC" type="MarginContainer" parent="." index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -932,6 +938,7 @@ _sections_unfolded = [ "Textures", "custom_fonts" ]
 
 [node name="ResultPanel" type="Panel" parent="." index="1"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1069,6 +1076,41 @@ texture_pressed = ExtResource( 9 )
 expand = true
 stretch_mode = 5
 _sections_unfolded = [ "Textures", "custom_fonts" ]
+
+[node name="Label" type="Label" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label2" type="Label" parent="." index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_top = 20.0
+margin_bottom = 34.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="button_down" from="MC/CC/C/Wall/Repair" to="." method="_on_Repair_button_down"]
 

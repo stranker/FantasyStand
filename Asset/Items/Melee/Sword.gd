@@ -9,11 +9,6 @@ func attack():
 		$Anim.play("Attack",-1, attackSpeed)
 	pass
 
-func _on_Sword_body_entered(body):
-	if body.is_in_group("Enemy") and attacking:
-		body.get_damage(damage)
-	pass # replace with function body
-
 func update_stats(strength, agility, luck):
 	damage += strength / 2
 	pass
@@ -43,4 +38,9 @@ func create_initial_sword():
 	var wEquiped = true
 	var wSub = "Melee"
 	create_weapon(wName,wText,wSub,wDmg,wASpeed,wCritic,wRarity,wOwned,wEquiped)
+	pass
+
+func _on_Sword_area_entered(area):
+	if attacking and area.get_parent().is_in_group("Enemy"):
+		area.get_parent().get_damage(damage)
 	pass

@@ -12,12 +12,12 @@ var controlsScene = \"res://Asset/Scenes/ControlsScene.tscn\"
 var creditsScene = \"res://Asset/Scenes/CreditsScene.tscn\"
 
 func _on_Play_button_down():
-	get_tree().change_scene(controlsScene)
+	Global.goto_scene(controlsScene)
 	pass # replace with function body
 
 
 func _on_Credits_pressed():
-	get_tree().change_scene(creditsScene)
+	Global.goto_scene(creditsScene)
 	pass # replace with function body
 "
 _sections_unfolded = [ "Resource" ]

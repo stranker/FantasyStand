@@ -84,7 +84,6 @@ func retreive_weapons():
 	for i in $WPos.get_children():
 		i.global_position = Vector2(-1000,-1000) # UN ASCO
 		$WPos.call_deferred(\"remove_child\",i)
-		InventoryManager.WeaponList.push_back(i)
 	weaponList.clear()
 	pass
 
@@ -92,8 +91,9 @@ func set_weapons():
 	weaponList = InventoryManager.WeaponEquiped
 	for i in weaponList:
 		$WPos.add_child(i)
-	#weaponList[1].hide()
-	#currentWeapon = weaponList[0]
+		i.position = $WPos.position
+	weaponList[1].hide()
+	currentWeapon = weaponList[0]
 	pass"
 _sections_unfolded = [ "Resource" ]
 
@@ -148,7 +148,7 @@ shape = SubResource( 2 )
 
 [node name="WPos" type="Position2D" parent="." index="2"]
 
-position = Vector2( 31.5468, -1.43394 )
+position = Vector2( 29.6056, 2.772 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="3"]
 
@@ -179,7 +179,6 @@ blend_times = [  ]
 
 [node name="DamageArea" type="Area2D" parent="." index="5"]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
