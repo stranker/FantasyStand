@@ -22,7 +22,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	if !Global.wall.life > 0:
+	if !Global.wallStats.life > 0:
 		currentState = STATES.FOLLOW
 	pass
 

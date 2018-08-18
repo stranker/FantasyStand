@@ -12,14 +12,14 @@ func _ready():
 	pass
 
 func get_damage(val):
-	Global.wall.life -= val
-	if Global.wall.life  <= 0:
+	Global.wallStats.life -= val
+	if Global.wallStats.life  <= 0:
 		$CollisionShape2D.disabled = true
-		Global.wall.life = 0
+		Global.wallStats.life = 0
 	pass
 
 func is_alive():
-	return Global.wall.life > 0"
+	return Global.wallStats.life > 0"
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="RectangleShape2D" id=2]

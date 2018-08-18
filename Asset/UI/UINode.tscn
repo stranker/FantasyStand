@@ -24,8 +24,8 @@ func update_labels():
 	if level != Global.level:
 		level = Global.level
 		$MC/Container/LevelLabel.text = \"LEVEL \" +str(level)
-	if wallHp != Global.wall.life:
-		wallHp = Global.wall.life
+	if wallHp != Global.wallStats.life:
+		wallHp = Global.wallStats.life
 		$MC/Container/WallLabel.text = \"WALL HP \" + str(wallHp)
 	pass"
 _sections_unfolded = [ "Resource" ]

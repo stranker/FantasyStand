@@ -17,7 +17,7 @@ var sword = preload(\"res://Asset/Items/Melee/Sword.tscn\")
 var alive = true
 
 func _ready():
-	Global.player.playerRef = self
+	Global.player = self
 	set_physics_process(true)
 	if OS.get_name() == \"Windows\":
 		$CanvasLayer/ControlAnalogico.hide()
@@ -92,6 +92,7 @@ func set_weapons():
 	for i in weaponList:
 		$WPos.add_child(i)
 		i.position = $WPos.position
+	weaponList[0].show()
 	weaponList[1].hide()
 	currentWeapon = weaponList[0]
 	pass"

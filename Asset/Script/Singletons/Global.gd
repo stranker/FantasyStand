@@ -5,8 +5,9 @@ var enemiesKilled
 var level
 var pointToSpend
 var cantCompanion
-var wall = null
 var player = null
+var playerStats
+var wallStats
 
 var current_scene = null
 
@@ -14,7 +15,7 @@ var gameOverScene = "res://Asset/Scenes/GameOverScene.tscn"
 var gameScene = "res://Asset/Scenes/TestScene.tscn"
 var upgradeScene = "res://Asset/Scenes/UpgradeScene.tscn"
 
-class Wall:
+class WallStats:
 	var life = 100
 	var maxLife = 100
 	var level = 1
@@ -37,13 +38,12 @@ class Wall:
 		life = maxLife
 		level = 1
 
-class Player:
+class PlayerStats:
 	var strength = 1
 	var agility = 1
 	var intelligence = 1
 	var luck = 1
 	var speed = 100
-	var playerRef = null
 	
 	func initialize():
 		speed = 100
@@ -63,8 +63,8 @@ func _ready():
 	pass
 
 func new_game():
-	wall.initialize()
-	player.initialize()
+	wallStats.initialize()
+	playerStats.initialize()
 	gold = 9999
 	pointToSpend = 0
 	enemiesKilled = 0
@@ -72,8 +72,8 @@ func new_game():
 	pass
 
 func initialize():
-	wall = Wall.new()
-	player = Player.new()
+	wallStats = WallStats.new()
+	playerStats = PlayerStats.new()
 	gold = 9999
 	pointToSpend = 0
 	enemiesKilled = 0
@@ -108,6 +108,4 @@ func next_level():
 
 func game_over():
 	goto_scene(gameOverScene)
-	get_tree().change_scene(gameOverScene)
-	new_game()
 	pass
