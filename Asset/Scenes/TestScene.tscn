@@ -86,7 +86,6 @@ position = Vector2( 102.243, 263.561 )
 
 [node name="Enemies" type="Node2D" parent="." index="3"]
 
-editor/display_folded = true
 _sections_unfolded = [ "Z Index" ]
 
 [node name="EnemySpawn" parent="Enemies" index="0" instance=ExtResource( 5 )]

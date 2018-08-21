@@ -9,7 +9,6 @@ resource_name = "Player.gd"
 script/source = "extends KinematicBody2D
 
 var velocity = Vector2()
-var speed = 2
 var currentWeapon = null
 var weaponList = []
 var bow = preload(\"res://Asset/Items/Range/Bow.tscn\")
@@ -59,18 +58,18 @@ func movement(delta):
 	velocity = Vector2()
 	if OS.get_name() == \"Windows\":
 		if Input.is_action_pressed(\"ui_up\"):
-			velocity.y += -speed
+			velocity.y += -1
 		elif Input.is_action_pressed(\"ui_down\"):
-			velocity.y += speed
+			velocity.y += 1
 		if Input.is_action_pressed(\"ui_right\"):
-			velocity.x += speed
+			velocity.x += 1
 		elif Input.is_action_pressed(\"ui_left\"):
-			velocity.x += -speed
+			velocity.x += -1
 	else:
 		velocity.x = $CanvasLayer/ControlAnalogico.fuerza.x
 		velocity.y = -$CanvasLayer/ControlAnalogico.fuerza.y
 	velocity = velocity.normalized()
-	move_and_slide(velocity * Global.player.speed)
+	move_and_slide(velocity * Global.playerStats.speed)
 	pass
 
 
